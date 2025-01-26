@@ -79,4 +79,11 @@
     .custom-gradient{
       background-image: linear-gradient(180deg, #9B59B6 40%, #70D2BF 100%)
     }
+    .custom-shadow {
+      box-shadow: 8px 4px 8px 0px rgba(110, 63, 129, 0.4), 0px 8px 32px 0px rgba(188, 144, 206, 0.5);
+    }
   }
+
+  ::-webkit-scrollbar{
+    @apply hidden
+}

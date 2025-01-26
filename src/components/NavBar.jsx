@@ -6,7 +6,7 @@ const NavBar = () => {
   const [token, setToken] = useState();
 
   return (
-    <div className="flex items-center justify-between text-sm py-4 mb-5 mx-16 ">
+    <div className="flex items-center justify-between text-sm py-4 mb-5 px-16 bg-white w-full">
       <img
         className="w-50 cursor-pointer"
         src="/assets/images/logo.png"
