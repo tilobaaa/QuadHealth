@@ -1,9 +1,9 @@
-import { NavLink, Link } from "react-router-dom";
-import { useState } from "react";
+// import { NavLink, Link } from "react-router-dom";
+// import { useState } from "react";
 
 const NavBar = () => {
-  const [showMenu, setShowMenu] = useState(false);
-  const [token, setToken] = useState();
+  // const [showMenu, setShowMenu] = useState(false);
+  // const [token, setToken] = useState();
 
   return (
     <div className="flex items-center justify-between text-sm py-4 mb-5 px-16 bg-white w-full">

@@ -1,14 +1,19 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import Input from "../components/Input";
 
 const Onboarding = () => {
+  const { step } = useParams();
+  const totalSteps = 4;
+  const [error, setError] = useState();
+  const navigate = useNavigate()
+
   return (
     <div className="w-full flex-grow bg-gray-100 flex flex-col">
-      {/* <div className='bg-gray-50 p-10 m-auto'>
-            <h3>Let’s get to know you better!</h3>
-            <p>We need just a few details to set up your profile and connect you to the care you deserve.</p>
-        </div> */}
+      
 
-      <div className="flex flex-col items-center p-6 bg-gray-50  w-1/3 m-auto">
+{  step === "1" &&    <div className="flex flex-col items-center p-6 bg-gray-50  w-1/3 m-auto">
         {/* Header Section */}
         <div className="text-center mb-6">
           <h1 className="text-2xl font-semibold text-gray-800 mb-2">
@@ -22,86 +27,54 @@ const Onboarding = () => {
 
         {/* Progress Bar */}
         <div className="w-full flex items-center gap-4 mb-6">
-          <div className="flex-1 h-2 bg-purple-500 rounded"></div>
-          <div className="flex-1 h-2 bg-gray-300 rounded"></div>
-          <div className="flex-1 h-2 bg-gray-300 rounded"></div>
-          <div className="flex-1 h-2 bg-gray-300 rounded"></div>
-          <p className="text-sm text-gray-600">Step 1/4</p>
+          {Array.from({ length: totalSteps }).map((_, index) => (
+            <div
+              key={index}
+              className={`h-2 w-full ${
+                index < step ? "bg-purple-500" : "bg-gray-300"
+              } rounded`}
+            ></div>
+          ))}
+          <p className="text-sm text-gray-600">{`Step ${step}/4`}</p>
         </div>
 
         {/* Form */}
-        <form className="w-full max-w-md">
+        <form className="w-full max-w-md flex flex-col gap-4">
           {/* Name Fields */}
-          <div className="flex gap-4 mb-4">
-            <div className="relative flex-1">
-              <input
-                type="text"
-                placeholder="First Name"
-                className="peer w-full border border-gray-300 rounded-md px-10 py-2 placeholder-transparent focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
-              <label
-                htmlFor="firstName"
-                className="absolute left-3 top-2.5 text-sm text-gray-400 peer-placeholder-shown:top-2 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:text-base peer-focus:top-2.5 peer-focus:text-sm peer-focus:text-purple-500"
-              >
-                First Name
-              </label>
-              <i className="absolute left-3 top-3 text-gray-400 material-icons">
-                person
-              </i>
-            </div>
-            <div className="relative flex-1">
-              <input
-                type="text"
-                placeholder="Last Name"
-                className="peer w-full border border-gray-300 rounded-md px-10 py-2 placeholder-transparent focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
-              <label
-                htmlFor="lastName"
-                className="absolute left-3 top-2.5 text-sm text-gray-400 peer-placeholder-shown:top-2 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:text-base peer-focus:top-2.5 peer-focus:text-sm peer-focus:text-purple-500"
-              >
-                Last Name
-              </label>
-              <i className="absolute left-3 top-3 text-gray-400 material-icons">
-                person
-              </i>
-            </div>
+          <div className="flex gap-4">
+            <Input
+              img="/assets/user-02.svg"
+              label="First Name"
+              errorMessage="This is a required field"
+              type="text"
+              id="first-name"
+            />
+            <Input
+              label="Last Name"
+              errorMessage="This is a required field"
+              type="text"
+              id="last-name"
+            />
           </div>
 
           {/* Address Field */}
-          <div className="relative mb-4">
-            <input
-              type="text"
-              placeholder="Home Address"
-              className="peer w-full border border-gray-300 rounded-md px-10 py-2 placeholder-transparent focus:outline-none focus:ring-2 focus:ring-purple-500"
-            />
-            <label
-              htmlFor="address"
-              className="absolute left-3 top-2.5 text-sm text-gray-400 peer-placeholder-shown:top-2 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:text-base peer-focus:top-2.5 peer-focus:text-sm peer-focus:text-purple-500"
-            >
-              Home Address
-            </label>
-            <i className="absolute left-3 top-3 text-gray-400 material-icons">
-              home
-            </i>
-          </div>
+          <Input
+            img="/assets/marker-pin-01.svg"
+            label="Home Address"
+            errorMessage="This is a required field"
+            type="text"
+            id="home-address"
+          />
 
           {/* Date of Birth */}
-          <div className="relative mb-6">
-            <input
-              type="text"
-              placeholder="Date of Birth"
-              className="peer w-full border border-gray-300 rounded-md px-10 py-2 placeholder-transparent focus:outline-none focus:ring-2 focus:ring-purple-500"
-            />
-            <label
-              htmlFor="dob"
-              className="absolute left-3 top-2.5 text-sm text-gray-400 peer-placeholder-shown:top-2 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:text-base peer-focus:top-2.5 peer-focus:text-sm peer-focus:text-purple-500"
-            >
-              Date of Birth
-            </label>
-            <i className="absolute left-3 top-3 text-gray-400 material-icons">
-              calendar_today
-            </i>
-          </div>
+          <Input
+            img="/assets/calendar.svg"
+            label="Date of Birth"
+            errorMessage="This is a required field"
+            type="date"
+            id="dob"
+            className="appearance-none"
+          />
 
           {/* Gender Section */}
           <div className="mb-6">
@@ -109,7 +82,7 @@ const Onboarding = () => {
             <div className="flex gap-4">
               <div className="flex flex-col items-center w-1/2 p-4 border border-gray-300 rounded-md cursor-pointer hover:border-purple-500">
                 <img
-                  src="/assets/images/female-icon.png"
+                  src="/assets/group-female.svg"
                   alt="Female"
                   className="w-12 h-12 mb-2"
                 />
@@ -117,7 +90,7 @@ const Onboarding = () => {
               </div>
               <div className="flex flex-col items-center w-1/2 p-4 border border-gray-300 rounded-md cursor-pointer hover:border-purple-500">
                 <img
-                  src="/assets/images/male-icon.png"
+                  src="/assets/group-male.svg"
                   alt="Male"
                   className="w-12 h-12 mb-2"
                 />
@@ -129,12 +102,100 @@ const Onboarding = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-3 text-white bg-purple-500 rounded-md hover:bg-purple-600 transition-all duration-200"
+            onClick={()=>{navigate('/onboarding/2')}}
+            className="w-full py-3 text-white bg-purple-500 cursor-pointer rounded-md  hover:scale-105 transition-all duration-500"
           >
             Continue
           </button>
         </form>
+      </div>}
+
+      {
+        step === "2" && <div className="flex flex-col items-center p-6 bg-gray-50  w-1/3 m-auto">
+        {/* Header Section */}
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-semibold text-gray-800 mb-2">
+            Medical History
+          </h1>
+          <p className="text-sm text-gray-600">
+            Help us provide the best care by sharing any important medical details.
+          </p>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="w-full flex items-center gap-4 mb-6">
+          {Array.from({ length: totalSteps }).map((_, index) => (
+            <div
+              key={index}
+              className={`h-2 w-full ${
+                index < step ? "bg-purple-500" : "bg-gray-300"
+              } rounded`}
+            ></div>
+          ))}
+          <p className="text-sm text-gray-600">{`Step ${step}/4`}</p>
+        </div>
+
+        {/* Form */}
+        <form className="w-full max-w-md flex flex-col gap-4">
+          {/* Name Fields */}
+          <select className="w-full text-gray-400 bg-gray-50 text-sm border border-gray-400 rounded-sm px-4 py-3" name="" id="">
+            <option value="--">Existing medical conditions</option>
+            <option value="">Asthma</option>
+            <option value="">Arthritis (e.g., Rheumatoid Arthritis, Osteoarthritis)</option>
+            <option value="">Breast Cancer</option>
+            <option value="">Congestibe Heart Failure</option>
+            <option value="">HIV/AIDS</option>
+            <option value="">Epilepsy</option>
+            <option value="">Hepatitis (A, B, C)</option>
+            <option value="">Type 2 Diabetes</option>
+            <option value="">Sickle Cell Disease</option>
+          </select>
+          <select className="w-full text-gray-400 bg-gray-50 text-sm border border-gray-400 rounded-sm px-4 py-3" name="" id="">
+            <option value="--">Allergies</option>
+            <option value="">Asthma</option>
+            <option value="">Arthritis (e.g., Rheumatoid Arthritis, Osteoarthritis)</option>
+            <option value="">Breast Cancer</option>
+            <option value="">Congestibe Heart Failure</option>
+            <option value="">HIV/AIDS</option>
+            <option value="">Epilepsy</option>
+            <option value="">Hepatitis (A, B, C)</option>
+            <option value="">Type 2 Diabetes</option>
+            <option value="">Sickle Cell Disease</option>
+          </select>
+          <div className="w-full flex gap-4">
+            <select className="w-full text-gray-400 bg-gray-50 text-sm border border-gray-400 rounded-sm px-4 py-3" name="" id="">
+              <option value="">A Positive (A+)</option>
+              <option value="">A Negative (A-)</option>
+              <option value="">B Positive (B+)</option>
+              <option value="">B Negative (B-)</option>
+              <option value="">AB Negative (AB+)</option>
+              <option value="">AB Positive (AB-)</option>
+              <option value="">O Positive (O+)</option>
+              <option value="">O Negative (O-)</option>
+              <option value=""></option>
+            </select>
+            <select className="w-full text-gray-400 bg-gray-50 text-sm border border-gray-400 rounded-sm px-4 py-3" name="" id="">
+              <option value="">AA</option>
+              <option value="">AS</option>
+              <option value="">AS</option>
+              <option value="">AC</option>
+              <option value="">SC</option>
+            </select>
+          </div>
+          <select className="w-full text-gray-400 bg-gray-50 text-sm border border-gray-400 rounded-sm px-4 py-3" name="" id="">
+            <option value="">Appendectomy</option>
+            <option value="">Cataract Surgery</option>
+            <option value="">Coronary Artery Bypass Graft (CABG)</option>
+            <option value="">C-Section (Cesarean Delivery)</option>
+            <option value="">Gallbladder Removal</option>
+          </select>
+          <div className="w-full flex gap-4">
+            <button className="bg-primary-500 text-gray-50">Continue</button>
+            <button>Skip</button>
+          </div>
+        </form>
       </div>
+      }
     </div>
   );
 };

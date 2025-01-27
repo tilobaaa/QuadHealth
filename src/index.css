@@ -82,6 +82,16 @@
     .custom-shadow {
       box-shadow: 8px 4px 8px 0px rgba(110, 63, 129, 0.4), 0px 8px 32px 0px rgba(188, 144, 206, 0.5);
     }
+
+    .text-lg{
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+
+    .text-4xl{
+      font-size: 2rem;
+      line-height: 1.5rem;
+    }
   }
 
   ::-webkit-scrollbar{
