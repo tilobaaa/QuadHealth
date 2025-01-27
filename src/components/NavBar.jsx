@@ -6,15 +6,20 @@ const NavBar = () => {
   // const [token, setToken] = useState();
 
   return (
-    <div className="flex items-center justify-between text-sm py-4 mb-5 px-16 bg-white w-full">
+    <div className="py-6 px-3.5 sm:p-6 flex items-center justify-between text-sm sm:py-4 sm:mb-5 sm:px-16 bg-white w-full">
       <img
-        className="w-50 cursor-pointer"
+        className="w-40 sm:w-50 cursor-pointer"
         src="/assets/images/logo.png"
         alt=""
       />
+      {/* small screens */}
 
-      <div className="flex flex-row items-center gap-4">
-        <p className="text-lg font-semibold pb-1 border-b text-gray-800">
+    <div className="sm:hidden">
+      <img className="w-10 h-10" src="/assets/menu-01.svg" alt="" />
+    </div>
+      {/* medium and big screens */}
+      <div className="hidden sm:flex flex-row items-center gap-4">
+        <p className="  text-lg font-semibold pb-1 border-b text-gray-800">
           Health providers
         </p>
 
