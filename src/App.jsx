@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import NavBar from './components/NavBar'
 import SignUp from './pages/SignUp'
 import Auth from './pages/Auth'
+import Onboarding from './pages/Onboarding '
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/signup" element={<SignUp/>}/>
       <Route path='/authentication' element={<Auth/>}/>
+      <Route path="/onboarding/1" element={<Onboarding/>}/>
     </Routes>
    </div>
   )

@@ -34,10 +34,10 @@ const Auth = () => {
             Resend code
           </span>
         </p>
-        <button className="bg-primary-500 rounded-sm w-full py-3 text-gray-100 hover:scale-105 transition-all duration-500 cursor-pointer mb-4">
+        <button onClick={()=>{navigate('/onboarding/1')}} className="bg-primary-500 rounded-sm w-full py-3 text-gray-100 hover:scale-105 transition-all duration-500 cursor-pointer mb-4">
           Verify Identity
         </button>
-        <button className="bg-gray-50 rounded-sm w-full py-3 text-gray-800 hover:scale-105 transition-all duration-500 cursor-pointer mb-4">
+        <button  className="bg-gray-50 rounded-sm w-full py-3 text-gray-800 hover:scale-105 transition-all duration-500 cursor-pointer mb-4">
           Verify with email address
         </button>
       </div>
