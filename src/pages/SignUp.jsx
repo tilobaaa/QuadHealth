@@ -1,20 +1,54 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useOnboardingStore from "../store/onBoardingStore";
-import * as Yup from 'yup'
+import * as Yup from "yup";
 
 const SignUp = () => {
   const [error, setError] = useState(false);
   const navigate = useNavigate();
-  const {updateSignupData} = useOnboardingStore();
+  const { updateSignupData } = useOnboardingStore();
 
- 
+  const [termsChecked, setTermsChecked] = useState(false);
+  const [receiveEmail, setReceiveEmail] = useState(false);
+  const [noCheckOut, setNoCheckOut] = useState(false);
 
-  
-  const handleSubmit= async(e)=>{
+  const emailRef = useRef("");
+  const passwordRef = useRef("");
+  const phoneNumberRef = useRef("");
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().required("Name is required"),
+    password: Yup.string()
+      .min(8, "Password must be at least 8 characters")
+      .required("Password is required"),
+    phoneNumber: Yup.string().required("Phone Number is required"),
+  });
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-}
+
+    console.log(emailRef.current.value);
+    console.log(passwordRef.current.value);
+    console.log(phoneNumberRef.current.value);
+
+    const formData = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+      phoneNumber: phoneNumberRef.current.value,
+    };
+
+    if (termsChecked) {
+      try {
+        await validationSchema.validate(formData, { abortEarly: false });
+        updateSignupData(formData);
+        console.log("we would do it");
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      setNoCheckOut(true)
+    }
+  };
 
   return (
     <div className="flex flex-grow flex-row w-full items-center relative">
@@ -81,10 +115,17 @@ const SignUp = () => {
             Welcome to QuadHealth
           </h3>
           <p className="text-grey-700 text-lg">
-            Create an account to find doctors near you <span className="hidden sm:inline">and affordable healthcare
-            right at <br className="sm:hidden md:inline" /> your fingertips.</span>
+            Create an account to find doctors near you{" "}
+            <span className="hidden sm:inline">
+              and affordable healthcare right at{" "}
+              <br className="sm:hidden md:inline" /> your fingertips.
+            </span>
           </p>
-          <form onSubmit={handleSubmit} action="" className="mt-6 sm:mt-10 flex flex-col gap-6">
+          <form
+            onSubmit={handleSubmit}
+            action=""
+            className="mt-6 sm:mt-10 flex flex-col gap-6"
+          >
             <div>
               <div className="relative">
                 <span className="absolute left-2 top-1/2 transform -translate-y-1/2">
@@ -96,7 +137,7 @@ const SignUp = () => {
                   </span>
                 )}
                 <input
-                 
+                  ref={emailRef}
                   type="email"
                   id="email"
                   placeholder="Enter an email address"
@@ -124,14 +165,13 @@ const SignUp = () => {
               )}
             </div>
             <div>
-
               {/* phone number */}
               <div className="relative">
                 <span className="absolute left-2 top-1/2 transform -translate-y-1/2 flex gap-2 items-center">
-                <div className="flex gap-2">
-                  <div className="w-2 h-4 bg-[#6DA544]"></div>
-                  <div className="w-2 h-4 bg-[#6DA544]"></div>
-                </div>
+                  <div className="flex gap-2">
+                    <div className="w-2 h-4 bg-[#6DA544]"></div>
+                    <div className="w-2 h-4 bg-[#6DA544]"></div>
+                  </div>
                   <img src="/assets/chevron-down.svg" className="" alt="" />
                 </span>
                 {error && (
@@ -140,10 +180,11 @@ const SignUp = () => {
                   </span>
                 )}
                 <input
-          
-                  type="password"
-                  id="password"
-                  placeholder="Enter a Password"
+                  name="telephone"
+                  ref={phoneNumberRef}
+                  type="tel"
+                  id="telephone"
+                  placeholder="Enter a phone Number"
                   className={`bg-grey-50 peer w-full border ${
                     error
                       ? "border-error-500 focus:ring-error-500"
@@ -151,7 +192,7 @@ const SignUp = () => {
                   }  rounded pl-20 pr-2 py-4 focus:outline-none focus:ring-2   placeholder-transparent`}
                 />
                 <label
-                  htmlFor="password"
+                  htmlFor="telephone"
                   className={`absolute bg-grey-50 left-20 top-4 px-1 ${
                     error ? "text-error-500" : "text-grey-400"
                   }  text-base transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-grey-400 peer-focus:-top-3 peer-focus:text-sm ${
@@ -160,7 +201,7 @@ const SignUp = () => {
                       : "peer-focus:text-primary-500"
                   } `}
                 >
-                 (+234) 000-0000-000
+                  (+234) 000-0000-000
                 </label>
               </div>
               {error && (
@@ -178,7 +219,8 @@ const SignUp = () => {
                   </span>
                 )}
                 <input
-            
+                  ref={passwordRef}
+                  name="password"
                   type="password"
                   id="password"
                   placeholder="Enter a Password"
@@ -189,7 +231,7 @@ const SignUp = () => {
                   }  rounded pl-10 pr-2 py-4 focus:outline-none focus:ring-2   placeholder-transparent`}
                 />
                 <label
-                  htmlFor="name"
+                  htmlFor="password"
                   className={`absolute bg-grey-50 left-10 top-4 px-1 ${
                     error ? "text-error-500" : "text-grey-400"
                   }  text-base transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-grey-400 peer-focus:-top-3 peer-focus:text-sm ${
@@ -210,8 +252,23 @@ const SignUp = () => {
             </div>
 
             <div className="flex items-center space-x-2">
-              <input type="checkbox" id="terms" className="hidden peer" />
-              <div htmlFor="terms" className="w-6 h-6 flex items-center justify-center border-2 border-grey-300 rounded-sm peer-checked:bg-primary-500 peer-checked:border-primary-500 peer-focus:ring-2 peer-focus:ring-primary-300"></div>
+              <input
+                type="checkbox"
+                id="terms"
+                name="terms"
+                className="hidden peer"
+                onClick={() => {
+                  setTermsChecked((prev) => !prev);
+                }}
+              />
+              <label
+                htmlFor="terms"
+                className={`w-6 h-6 flex items-center justify-center border-2 border-grey-300 rounded-sm ${noCheckOut && "border-danger-500"} peer-checked:border-primary-500 peer-focus:ring-2 peer-focus:ring-primary-300`}
+              >
+                {termsChecked && (
+                  <img src="/assets/check.svg" alt="checkmark" />
+                )}
+              </label>
               <label htmlFor="terms" className="text-grey-700 text-sm">
                 By signing up, you agree to our{" "}
                 <a href="#" className="text-primary-500 underline">
@@ -224,16 +281,32 @@ const SignUp = () => {
                 .
               </label>
             </div>
+
             <div className="flex items-start space-x-2">
-              <input type="checkbox" id="terms" className="hidden peer" />
-              <div className="w-6 h-6 flex items-center justify-center border-2 border-grey-300 rounded-sm peer-checked:bg-primary-500 peer-checked:border-primary-500 peer-focus:ring-2 peer-focus:ring-primary-300"></div>
-              <label htmlFor="terms" className="text-grey-700 text-sm">
+              <input
+                name="receive-email"
+                type="checkbox"
+                id="receive-email"
+                className="hidden peer"
+                onClick={() => {
+                  setReceiveEmail((prev) => !prev);
+                }}
+              />
+              <label
+                htmlFor="receive-email"
+                className="w-6 h-6 flex items-center justify-center border-2 border-grey-300 rounded-sm  peer-checked:border-primary-500 peer-focus:ring-2 peer-focus:ring-primary-300"
+              >
+                {receiveEmail && (
+                  <img src="/assets/check.svg" alt="checkmark" />
+                )}
+              </label>
+              <label htmlFor="receive-email" className="text-grey-700 text-sm">
                 Receive health tips and updates about affordable care options.
               </label>
             </div>
 
             <button
-             type="submit"
+              type="submit"
               disabled={error}
               className="w-full py-3 text-grey-100 bg-primary-500 hover:scale-105 cursor-pointer transition-all duration-500 rounded-sm disabled:cursor-not-allowed "
             >
