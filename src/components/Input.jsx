@@ -19,15 +19,13 @@ const Input = (props) => {
           type={props.type}
           id={props.id}
           value={props.value}
-          onChange={onChange}
+          
           placeholder="Enter an email address"
           className={`bg-grey-50 peer w-full border ${
             error
               ? "border-error-500 focus:ring-error-500"
               : "border-grey-300 focus:ring-primary-200"
-          }  rounded pl-10 pr-2 py-4 focus:outline-none focus:ring-2 placeholder-transparent ${
-            props.className
-          }`}
+          }  rounded pl-10 pr-2 py-4 focus:outline-none focus:ring-2 placeholder-transparent `}
           
         />
         <label

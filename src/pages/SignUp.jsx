@@ -4,7 +4,7 @@ import useOnboardingStore from "../store/onBoardingStore";
 import * as Yup from "yup";
 
 const SignUp = () => {
-  const [error, setError] = useState(false);
+  const [errorState, setErrorState] = useState({});
   const navigate = useNavigate();
   const { updateSignupData } = useOnboardingStore();
 
@@ -17,7 +17,9 @@ const SignUp = () => {
   const phoneNumberRef = useRef("");
 
   const validationSchema = Yup.object().shape({
-    email: Yup.string().required("Name is required"),
+    email: Yup.string()
+      .email("Please enter a valid email address")
+      .required("Email is required"),
     password: Yup.string()
       .min(8, "Password must be at least 8 characters")
       .required("Password is required"),
@@ -41,12 +43,17 @@ const SignUp = () => {
       try {
         await validationSchema.validate(formData, { abortEarly: false });
         updateSignupData(formData);
+        navigate("/authentication");
         console.log("we would do it");
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        const newErrors = {};
+        error.inner.forEach((err) => {
+          newErrors[err.path] = err.message; //Store error message by field name
+        });
+        setErrorState(newErrors);
       }
     } else {
-      setNoCheckOut(true)
+      setNoCheckOut(true);
     }
   };
 
@@ -131,36 +138,50 @@ const SignUp = () => {
                 <span className="absolute left-2 top-1/2 transform -translate-y-1/2">
                   <img src="/assets/mail-01.svg" className="" alt="" />
                 </span>
-                {error && (
-                  <span className="absolute right-2 top-1/2 transform -translate-y-1/2">
+                {errorState.email && (
+                  <span
+                    onClick={() => {
+                      setErrorState((prev) => ({
+                        ...prev,
+                        email: undefined,
+                      }));
+                      emailRef.current.value = "";
+                    }}
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2"
+                  >
                     <img src="/assets/x-square.svg" className="" alt="" />
                   </span>
                 )}
                 <input
+                  required
+                  onInvalid={(e) => e.preventDefault()}
                   ref={emailRef}
                   type="email"
                   id="email"
                   placeholder="Enter an email address"
                   className={`bg-grey-50 peer w-full border ${
-                    error
+                    errorState.email
                       ? "border-error-500 focus:ring-error-500"
                       : "border-grey-300 focus:ring-primary-200"
                   }  rounded pl-10 pr-2 py-4 focus:outline-none focus:ring-2   placeholder-transparent`}
                 />
                 <label
                   htmlFor="email"
-                  className={`absolute bg-grey-50 left-10 top-4 px-1 ${
-                    error ? "text-error-500" : "text-grey-400"
-                  }  text-base transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-grey-400 peer-focus:-top-3 peer-focus:text-sm ${
-                    error
-                      ? "peer-focus:text-error-500"
-                      : "peer-focus:text-primary-500"
-                  } `}
+                  className={`absolute bg-grey-50 left-10 px-1 text-base transition-all
+                    ${
+                      errorState.email
+                        ? "text-error-500 peer-focus:text-error-500"
+                        : "text-grey-400 peer-focus:text-primary-500"
+                    }
+                    peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-grey-400
+                    peer-valid:-top-4 peer-valid:text-sm
+                    peer-focus:-top-4 peer-focus:text-sm
+                  `}
                 >
                   Enter an email address
                 </label>
               </div>
-              {error && (
+              {errorState.email && (
                 <p className="text-error-500">Enter a valid email address</p>
               )}
             </div>
@@ -174,19 +195,31 @@ const SignUp = () => {
                   </div>
                   <img src="/assets/chevron-down.svg" className="" alt="" />
                 </span>
-                {error && (
+                {errorState.telephone && (
                   <span className="absolute right-2 top-1/2 transform -translate-y-1/2">
-                    <img src="/assets/x-square.svg" className="" alt="" />
+                    <img
+                      onClick={() => {
+                        setErrorState((prev) => ({
+                          ...prev,
+                          telephone: undefined,
+                        }));
+                        phoneNumberRef.current.value = "";
+                      }}
+                      src="/assets/x-square.svg"
+                      className=""
+                      alt=""
+                    />
                   </span>
                 )}
                 <input
+                  required
                   name="telephone"
                   ref={phoneNumberRef}
                   type="tel"
                   id="telephone"
                   placeholder="Enter a phone Number"
                   className={`bg-grey-50 peer w-full border ${
-                    error
+                    errorState.telephone
                       ? "border-error-500 focus:ring-error-500"
                       : "border-grey-300 focus:ring-primary-200"
                   }  rounded pl-20 pr-2 py-4 focus:outline-none focus:ring-2   placeholder-transparent`}
@@ -194,38 +227,49 @@ const SignUp = () => {
                 <label
                   htmlFor="telephone"
                   className={`absolute bg-grey-50 left-20 top-4 px-1 ${
-                    error ? "text-error-500" : "text-grey-400"
-                  }  text-base transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-grey-400 peer-focus:-top-3 peer-focus:text-sm ${
-                    error
-                      ? "peer-focus:text-error-500"
-                      : "peer-focus:text-primary-500"
-                  } `}
+                    errorState.telephone
+                      ? "text-error-500 peer-focus:text-error-500"
+                      : "text-grey-400 peer-focus:text-primary-500"
+                  }  text-base transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-grey-400 peer-focus:-top-3 peer-focus:text-sm peer-valid:-top-3 peer-valid:text-sm`}
                 >
                   (+234) 000-0000-000
                 </label>
               </div>
-              {error && (
+              {errorState.telephone && (
                 <p className="text-error-500">Enter a valid phone number</p>
               )}
             </div>
+            {/* password input */}
             <div>
               <div className="relative">
                 <span className="absolute left-2 top-1/2 transform -translate-y-1/2">
                   <img src="/assets/lock-01.svg" className="" alt="" />
                 </span>
-                {error && (
+                {errorState.password && (
                   <span className="absolute right-2 top-1/2 transform -translate-y-1/2">
-                    <img src="/assets/x-square.svg" className="" alt="" />
+                    <img
+                      onClick={() => {
+                        setErrorState((prev) => ({
+                          ...prev,
+                          password: undefined,
+                        }));
+                        passwordRef.current.value = "";
+                      }}
+                      src="/assets/x-square.svg"
+                      className=""
+                      alt=""
+                    />
                   </span>
                 )}
                 <input
+                  required
                   ref={passwordRef}
                   name="password"
                   type="password"
                   id="password"
                   placeholder="Enter a Password"
                   className={`bg-grey-50 peer w-full border ${
-                    error
+                    errorState.password
                       ? "border-error-500 focus:ring-error-500"
                       : "border-grey-300 focus:ring-primary-200"
                   }  rounded pl-10 pr-2 py-4 focus:outline-none focus:ring-2   placeholder-transparent`}
@@ -233,18 +277,19 @@ const SignUp = () => {
                 <label
                   htmlFor="password"
                   className={`absolute bg-grey-50 left-10 top-4 px-1 ${
-                    error ? "text-error-500" : "text-grey-400"
-                  }  text-base transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-grey-400 peer-focus:-top-3 peer-focus:text-sm ${
-                    error
-                      ? "peer-focus:text-error-500"
-                      : "peer-focus:text-primary-500"
-                  } `}
+                    errorState.password
+                      ? "text-error-500 peer-focus:text-error-500"
+                      : "text-grey-400 peer-focus:text-primary-500"
+                  }  text-base transition-all peer-placeholder-shown:top-4 peer-valid:-top-3 peer-valid:text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-grey-400 peer-focus:-top-3 peer-focus:text-sm 
+                  }`}
                 >
                   Enter a Password
                 </label>
               </div>
               <p
-                className={`text-sm font-normal my-6 {error ? "text-error-500" : "text-grey-800"}`}
+                className={`text-sm font-normal my-6 ${
+                  errorState.password ? "text-error-500" : "text-grey-800"
+                }`}
               >
                 Password must be at least 8 characters long and include at least
                 one uppercase letter and one number.
@@ -263,7 +308,9 @@ const SignUp = () => {
               />
               <label
                 htmlFor="terms"
-                className={`w-6 h-6 flex items-center justify-center border-2 border-grey-300 rounded-sm ${noCheckOut && "border-danger-500"} peer-checked:border-primary-500 peer-focus:ring-2 peer-focus:ring-primary-300`}
+                className={`w-6 h-6 flex items-center justify-center border-2  rounded-sm ${
+                  noCheckOut ? "border-error-500" : "border-grey-300"
+                } peer-checked:border-primary-500 peer-focus:ring-2 peer-focus:ring-primary-300`}
               >
                 {termsChecked && (
                   <img src="/assets/check.svg" alt="checkmark" />
@@ -307,7 +354,6 @@ const SignUp = () => {
 
             <button
               type="submit"
-              disabled={error}
               className="w-full py-3 text-grey-100 bg-primary-500 hover:scale-105 cursor-pointer transition-all duration-500 rounded-sm disabled:cursor-not-allowed "
             >
               Continue

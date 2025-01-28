@@ -31,7 +31,7 @@ const Onboard3 = () => {
         {Array.from({ length: totalSteps }).map((_, index) => (
           <div
             key={index}
-            className={`h-3 w-16 ${
+            className={`h-2 w-16 ${
               index < step ? "bg-purple-500" : "bg-grey-300"
             } rounded`}
           ></div>

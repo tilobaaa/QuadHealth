@@ -2,25 +2,26 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import Input from "../../components/Input";
-import useOnboardingStore from "../../store/onBoardingStore";
 
 const Onboard1 = () => {
-    const { step } = useParams();
-    const totalSteps = 4;
-    const [error, setError] = useState();
-    const navigate = useNavigate();
-    const {updateData} = useOnboardingStore();
+  const { step } = useParams();
+  const totalSteps = 4;
+  const [error, setError] = useState();
+  const navigate = useNavigate();
 
-    const handleNext = ()=>{
-      navigate("/onboarding/2");
-    }
+  const handleNext = (e) => {
+    e.preventDefault();
+    navigate("/onboarding/2");
+  };
 
   return (
     <div className="flex flex-col items-center p-6 my-8 mx-6 bg-grey-50 sm:m-20  md:w-[40%] md:m-auto ">
       {/* Header Section */}
       <div className="text-center mb-6">
-        <h1 className="text-2xl font-semibold text-grey-800 mb-2">
-          Let's get to know you better!
+        <h1 className="text-xl sm:text-2xl font-semibold text-grey-800 mb-2">
+          Let's get to know you better <span className="hidden sm:inline">
+            !
+          </span>
         </h1>
         <p className="text-sm text-grey-600">
           We need just a few details to set up your profile and connect you to
@@ -29,21 +30,24 @@ const Onboard1 = () => {
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full flex items-center justify-center gap-4 mb-6">
+      <div className="w-full flex items-center justify-center gap-2 mb-6">
         <div></div>
         {Array.from({ length: totalSteps }).map((_, index) => (
           <div
             key={index}
-            className={`h-3 w-16 ${
+            className={`h-2 w-16 ${
               index < step ? "bg-purple-500" : "bg-grey-300"
-            } rounded`}
+            } rounded-lg`}
           ></div>
         ))}
         <p className="text-sm text-grey-600">{`Step ${step}/4`}</p>
       </div>
 
       {/* Form */}
-      <form className="w-full max-w-md flex flex-col gap-4">
+      <form
+        onSubmit={handleNext}
+        className="w-full max-w-md flex flex-col gap-4"
+      >
         {/* Name Fields */}
         <div className="flex flex-col md:flex-row gap-4 ">
           <Input
@@ -53,7 +57,6 @@ const Onboard1 = () => {
             errorMessage="This is a required field"
             type="text"
             id="first-name"
-            
           />
           <Input
             name="last"
@@ -109,7 +112,6 @@ const Onboard1 = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          onClick={handleNext}
           className="w-full py-3 text-white bg-purple-500 cursor-pointer rounded-md  hover:scale-105 transition-all duration-500"
         >
           Continue
