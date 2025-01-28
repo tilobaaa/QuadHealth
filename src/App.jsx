@@ -6,6 +6,7 @@ import Auth from './pages/Auth'
 import Onboarding from './pages/Onboarding '
 
 
+
 function App() {
   
 
@@ -17,6 +18,7 @@ function App() {
       <Route path="/signup" element={<SignUp/>}/>
       <Route path='/authentication' element={<Auth/>}/>
       <Route path="/onboarding/:step" element={<Onboarding/>}/>
+     
     </Routes>
    </div>
   )

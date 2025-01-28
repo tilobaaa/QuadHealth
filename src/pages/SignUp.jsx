@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useOnboardingStore from "../store/onBoardingStore";
+import * as Yup from 'yup'
 
 const SignUp = () => {
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+  const {updateSignupData} = useOnboardingStore();
+
+ 
+
+  
+  const handleSubmit= async(e)=>{
+    e.preventDefault();
+    
+}
 
   return (
     <div className="flex flex-grow flex-row w-full items-center relative">
       {/* left side */}
-      <div className="text-grey-50 hidden sm:flex flex-col p-5 w-1/2 h-full custom-gradient px-16 ">
+      <div className="text-grey-50 hidden md:flex flex-col p-5 w-1/2 h-full custom-gradient px-16 ">
         <h1 className="text-7xl font-semibold mb-16 mt-20">
           Say Hello to <br />
           Affordable, <br />
@@ -64,16 +75,16 @@ const SignUp = () => {
         </div>
       </div>
       {/* right side */}
-      <div className="bg-grey-100 sm:w-1/2 w-full h-full flex flex-col  overflow-y-auto">
+      <div className="bg-grey-100 md:w-1/2 w-full h-full flex flex-col  overflow-y-auto">
         <div className="bg-white m-8 py-6 px-4 sm:p-10 sm:ml-[8.37rem] sm:mr-[5rem] sm:my-10 rounded-md">
-          <h3 className="text-primary-500 text-2xl sm:text-4xl font-medium mb-2">
+          <h3 className="text-primary-500 text-2xl md:text-4xl font-medium mb-2">
             Welcome to QuadHealth
           </h3>
-          <p className="text-grey-700 text-lg sm:text-lg">
-            Create an account to find doctors near you <span className="hidden sm:block">and affordable healthcare
-            right at <br /> your fingertips.</span>
+          <p className="text-grey-700 text-lg">
+            Create an account to find doctors near you <span className="hidden sm:inline">and affordable healthcare
+            right at <br className="sm:hidden md:inline" /> your fingertips.</span>
           </p>
-          <form action="" className="mt-6 sm:mt-10 flex flex-col gap-6">
+          <form onSubmit={handleSubmit} action="" className="mt-6 sm:mt-10 flex flex-col gap-6">
             <div>
               <div className="relative">
                 <span className="absolute left-2 top-1/2 transform -translate-y-1/2">
@@ -85,6 +96,7 @@ const SignUp = () => {
                   </span>
                 )}
                 <input
+                 
                   type="email"
                   id="email"
                   placeholder="Enter an email address"
@@ -128,6 +140,7 @@ const SignUp = () => {
                   </span>
                 )}
                 <input
+          
                   type="password"
                   id="password"
                   placeholder="Enter a Password"
@@ -165,6 +178,7 @@ const SignUp = () => {
                   </span>
                 )}
                 <input
+            
                   type="password"
                   id="password"
                   placeholder="Enter a Password"
@@ -219,9 +233,7 @@ const SignUp = () => {
             </div>
 
             <button
-              onClick={() => {
-                navigate("/authentication");
-              }}
+             type="submit"
               disabled={error}
               className="w-full py-3 text-grey-100 bg-primary-500 hover:scale-105 cursor-pointer transition-all duration-500 rounded-sm disabled:cursor-not-allowed "
             >
@@ -243,7 +255,7 @@ const SignUp = () => {
           © 2025, QuadHealth Co.
         </p>
       </div>
-      <button className="hidden absolute right-4 bottom-55 cursor-pointer hover:scale-105 transition-all duration-300 bg-primary-500 sm:flex justify-center text-white items-center gap-2 py-3 px-6 rounded-sm custom-shadow">
+      <button className="hidden absolute right-4 bottom-55 cursor-pointer hover:scale-105 transition-all duration-300 bg-primary-500 md:flex justify-center text-white items-center gap-2 py-3 px-6 rounded-sm custom-shadow">
         Need Help <img src="/assets/help-square.svg" alt="" />
       </button>
     </div>
