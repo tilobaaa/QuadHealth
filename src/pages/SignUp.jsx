@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useOnboardingStore from "../store/onBoardingStore";
 import * as Yup from "yup";
@@ -26,6 +26,8 @@ const SignUp = () => {
     phoneNumber: Yup.string().required("Phone Number is required"),
   });
 
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -44,7 +46,8 @@ const SignUp = () => {
         await validationSchema.validate(formData, { abortEarly: false });
         updateSignupData(formData);
         navigate("/authentication");
-        console.log("we would do it");
+      
+        
       } catch (error) {
         const newErrors = {};
         error.inner.forEach((err) => {
@@ -60,7 +63,7 @@ const SignUp = () => {
   return (
     <div className="flex flex-grow flex-row w-full items-center relative">
       {/* left side */}
-      <div className="text-grey-50 hidden md:flex flex-col p-5 w-1/2 h-full custom-gradient px-16 ">
+      <div className="text-grey-50 hidden lg:flex flex-col p-5 w-1/2 h-full custom-gradient px-16 ">
         <h1 className="text-7xl font-semibold mb-16 mt-20">
           Say Hello to <br />
           Affordable, <br />
@@ -116,7 +119,7 @@ const SignUp = () => {
         </div>
       </div>
       {/* right side */}
-      <div className="bg-grey-100 md:w-1/2 w-full h-full flex flex-col  overflow-y-auto">
+      <div className="bg-grey-100 lg:w-1/2 w-full h-full flex flex-col  overflow-y-auto">
         <div className="bg-white m-8 py-6 px-4 sm:p-10 sm:ml-[8.37rem] sm:mr-[5rem] sm:my-10 rounded-md">
           <h3 className="text-primary-500 text-2xl md:text-4xl font-medium mb-2">
             Welcome to QuadHealth

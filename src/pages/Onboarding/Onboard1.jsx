@@ -2,16 +2,20 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import Input from "../../components/Input";
+import useOnboardingStore from "../../store/onBoardingStore";
 
 const Onboard1 = () => {
   const { step } = useParams();
   const totalSteps = 4;
   const [error, setError] = useState();
   const navigate = useNavigate();
+  const {updateOnboardingData} = useOnboardingStore()
+ const signUpData = useOnboardingStore((state)=> state.signupData)
 
   const handleNext = (e) => {
     e.preventDefault();
     navigate("/onboarding/2");
+
   };
 
   return (
