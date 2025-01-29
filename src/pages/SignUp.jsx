@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import useOnboardingStore from "../store/onBoardingStore";
 import * as Yup from "yup";
@@ -12,9 +13,36 @@ const SignUp = () => {
   const [receiveEmail, setReceiveEmail] = useState(false);
   const [noCheckOut, setNoCheckOut] = useState(false);
 
+  const [phoneNumber, setPhoneNumber] = useState("+234");
+
+  const handleChange = (e) => {
+    let value = e.target.value;
+
+    // Remove non-numeric characters except the plus sign
+    value = value.replace(/[^0-9+]/g, "");
+
+    // Ensure the country code remains +234
+    if (value.startsWith("+234")) {
+      value =
+        "+234 " +
+        value
+          .slice(4)
+          .replace(/(\d{3})(?=\d)/g, "$1 ")
+          .slice(0, 14); // Add space after every 3 digits
+    } else {
+      value = value.slice(0, 4); // Keep the +234 as default if not typed yet
+    }
+
+    setPhoneNumber(value);
+  };
+
   const emailRef = useRef("");
   const passwordRef = useRef("");
   const phoneNumberRef = useRef("");
+
+  useEffect(() => {
+    console.log(errorState);
+  }, [errorState]);
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -23,10 +51,13 @@ const SignUp = () => {
     password: Yup.string()
       .min(8, "Password must be at least 8 characters")
       .required("Password is required"),
-    phoneNumber: Yup.string().required("Phone Number is required"),
+    phoneNumber: Yup.string()
+      .matches(
+        /^\+234\s\d{3}\s\d{3}\s\d{4}$/,
+        "Phone number must be in the format +234 123 456 7890"
+      )
+      .required("Phone number is required"),
   });
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,9 +77,8 @@ const SignUp = () => {
         await validationSchema.validate(formData, { abortEarly: false });
         updateSignupData(formData);
         navigate("/authentication");
-      
-        
       } catch (error) {
+        console.log("Validation Errors:", error.inner);
         const newErrors = {};
         error.inner.forEach((err) => {
           newErrors[err.path] = err.message; //Store error message by field name
@@ -177,8 +207,8 @@ const SignUp = () => {
                         : "text-grey-400 peer-focus:text-primary-500"
                     }
                     peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-grey-400
-                    peer-valid:-top-4 peer-valid:text-sm
-                    peer-focus:-top-4 peer-focus:text-sm
+                    peer-valid:-top-3 peer-valid:text-sm
+                    peer-focus:-top-3 peer-focus:text-sm
                   `}
                 >
                   Enter an email address
@@ -198,13 +228,13 @@ const SignUp = () => {
                   </div>
                   <img src="/assets/chevron-down.svg" className="" alt="" />
                 </span>
-                {errorState.telephone && (
-                  <span className="absolute right-2 top-1/2 transform -translate-y-1/2">
+                {errorState.phoneNumber && (
+                  <span className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer">
                     <img
                       onClick={() => {
                         setErrorState((prev) => ({
                           ...prev,
-                          telephone: undefined,
+                          phoneNumber: undefined,
                         }));
                         phoneNumberRef.current.value = "";
                       }}
@@ -216,21 +246,23 @@ const SignUp = () => {
                 )}
                 <input
                   required
-                  name="telephone"
+                  name="phoneNumber"
                   ref={phoneNumberRef}
                   type="tel"
                   id="telephone"
+                  value={phoneNumber}
+                  onChange={handleChange}
                   placeholder="Enter a phone Number"
                   className={`bg-grey-50 peer w-full border ${
-                    errorState.telephone
+                    errorState.phoneNumber
                       ? "border-error-500 focus:ring-error-500"
                       : "border-grey-300 focus:ring-primary-200"
                   }  rounded pl-20 pr-2 py-4 focus:outline-none focus:ring-2   placeholder-transparent`}
                 />
                 <label
-                  htmlFor="telephone"
+                  htmlFor="phoneNumber"
                   className={`absolute bg-grey-50 left-20 top-4 px-1 ${
-                    errorState.telephone
+                    errorState.phoneNumber
                       ? "text-error-500 peer-focus:text-error-500"
                       : "text-grey-400 peer-focus:text-primary-500"
                   }  text-base transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-grey-400 peer-focus:-top-3 peer-focus:text-sm peer-valid:-top-3 peer-valid:text-sm`}
@@ -238,7 +270,7 @@ const SignUp = () => {
                   (+234) 000-0000-000
                 </label>
               </div>
-              {errorState.telephone && (
+              {errorState.phoneNumber && (
                 <p className="text-error-500">Enter a valid phone number</p>
               )}
             </div>
