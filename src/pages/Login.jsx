@@ -200,7 +200,7 @@ const Login = () => {
 
             <button
               type="submit"
-              className="w-full py-3 text-grey-100 bg-primary-500 hover:scale-105 cursor-pointer transition-all duration-500 rounded-sm disabled:cursor-not-allowed "
+              className="w-full py-3 text-grey-100 bg-primary-500 hover:scale-105 cursor-pointer transition-all duration-500 rounded-sm mt-auto disabled:cursor-not-allowed "
             >
               Sign In
             </button>
@@ -211,7 +211,8 @@ const Login = () => {
               or
             </p>
           </div>
-          <button className="flex items-center justify-center gap-4 bg-grey-50 text-grey-800 w-full border cursor-pointer py-3 hover:scale-105 transition-all duration-500 rounded-sm">
+         
+          <button className=" flex items-center justify-center gap-4 bg-grey-50 text-grey-800 w-full border cursor-pointer py-3 hover:scale-105 transition-all duration-500 rounded-sm ">
             <img className="w-6 h-6" src="/assets/google.svg" alt="" />
             Sign in with Google
           </button>

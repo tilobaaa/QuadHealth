@@ -27,11 +27,11 @@ const Onboard2 = () => {
       <form className="w-full max-w-md flex flex-col gap-4">
         {/* Name Fields */}
         <select
-          className="w-full text-grey-400 bg-grey-50 text-sm border border-grey-400 rounded-sm px-4 py-3"
+          className="w-full text-grey-400 bg-grey-50 text-sm border border-grey-400  rounded-sm px-4 py-3 focus:border-primary-500"
           name=""
           id=""
         >
-          <option value="--">Existing medical conditions</option>
+          <option className="" value="--">Existing medical conditions</option>
           <option value="">Asthma</option>
           <option value="">
             Arthritis (e.g., Rheumatoid Arthritis, Osteoarthritis)
@@ -45,7 +45,7 @@ const Onboard2 = () => {
           <option value="">Sickle Cell Disease</option>
         </select>
         <select
-          className="w-full text-grey-400 bg-grey-50 text-sm border border-grey-400 rounded-sm px-4 py-3"
+          className="w-full text-grey-400 bg-grey-50 text-sm border border-grey-400 rounded-sm px-4 py-3 focus:border-primary-500"
           name=""
           id=""
         >
@@ -100,6 +100,7 @@ const Onboard2 = () => {
         >
           <option value="--">Post surgical procedures</option>
           <option value="">Appendectomy</option>
+          <option value="BBL">Brazilian Butt Lift</option>
           <option value="">Cataract Surgery</option>
           <option value="">Coronary Artery Bypass Graft (CABG)</option>
           <option value="">C-Section (Cesarean Delivery)</option>
