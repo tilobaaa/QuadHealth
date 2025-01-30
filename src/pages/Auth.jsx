@@ -6,7 +6,7 @@ const Auth = () => {
     const navigate = useNavigate()
   return (
     <div className="flex-grow flex flex-col justify-center w-full bg-grey-100 relative">
-      <div className="bg-grey-50 m-6 sm:m-20 md:m-auto p-10 md:w-1/3 ">
+      <div className="bg-grey-50 m-6 sm:m-20 md:m-auto p-10 lg:w-1/3 ">
         <div className="flex gap-2">
           <img onClick={()=>{navigate('/signup')}} className="w-6 h-6 cursor-pointer" src="/assets/arrow-narrow-left.svg"  alt="" />
           <p className="text-grey-800 text-lg">Back</p>
@@ -44,7 +44,7 @@ const Auth = () => {
       <p className="text-sm text-grey-500 text-center">
         © 2025, QuadHealth Co.
       </p>
-      <button className="hidden absolute right-4 bottom-55 cursor-pointer hover:scale-105 transition-all duration-300 bg-primary-500 md:flex justify-center text-white items-center gap-2 py-3 px-6 rounded-sm custom-shadow">
+      <button className="hidden absolute right-4 bottom-55 cursor-pointer hover:scale-105 transition-all duration-300 bg-primary-500 lg:flex justify-center text-white items-center gap-2 py-3 px-6 rounded-sm custom-shadow">
         Need Help <img src="/assets/help-square.svg" alt="" />
       </button>
     </div>

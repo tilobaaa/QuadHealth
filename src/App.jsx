@@ -4,6 +4,7 @@ import NavBar from './components/NavBar'
 import SignUp from './pages/SignUp'
 import Auth from './pages/Auth'
 import Onboarding from './pages/Onboarding '
+import Login from './pages/Login'
 
 
 
@@ -16,6 +17,7 @@ function App() {
     <Routes className='mt-20'>
       <Route path="/" element={<Home />} />
       <Route path="/signup" element={<SignUp/>}/>
+      <Route path="/login" element={<Login />} />
       <Route path='/authentication' element={<Auth/>}/>
       <Route path="/onboarding/:step" element={<Onboarding/>}/>
      

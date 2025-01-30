@@ -1,20 +1,63 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Input from "../../components/Input";
 import useOnboardingStore from "../../store/onBoardingStore";
+import Progress from "../../components/Progress";
+import * as yup from 'yup'
 
 const Onboard1 = () => {
   const { step } = useParams();
   const totalSteps = 4;
-  const [error, setError] = useState();
+
   const navigate = useNavigate();
   const {updateOnboardingData} = useOnboardingStore()
  const signUpData = useOnboardingStore((state)=> state.signupData)
 
-  const handleNext = (e) => {
+ const firstNameRef = useRef();
+  const lastNameRef = useRef();
+  const addressRef = useRef();
+  const dobRef = useRef();
+
+  const [gender, setGender] = useState("");
+  const [error, setError] = useState({});
+
+  // Validation schema
+  const schema = yup.object().shape({
+    firstName: yup.string().required("First name is required"),
+    lastName: yup.string().required("Last name is required"),
+    homeAddress: yup.string().required("Address is required"),
+    dateOfBirth: yup.date().required("Date of birth is required"),
+   
+  });
+
+  // gender: yup.string().oneOf(["Male", "Female"]).required("Gender is required"),
+
+  const handleNext = async(e) => {
     e.preventDefault();
-    navigate("/onboarding/2");
+    const formData = {
+      firstName: firstNameRef.current.value,
+      lastName: lastNameRef.current.value,
+      homeAddress: addressRef.current.value,
+      dateOfBirth: dobRef.current.value,
+    
+    };
+
+    //  gender,
+
+    try {
+      await schema.validate(formData, { abortEarly: false });
+      console.log(formData)
+      updateOnboardingData("page1", formData);
+      navigate("/onboarding/2");
+    } catch (err) {
+      const errors = {};
+      err.inner.forEach((e) => {
+        errors[e.path] = e.message;
+      });
+      setError(errors);
+    }
+  
 
   };
 
@@ -32,20 +75,8 @@ const Onboard1 = () => {
           the care you deserve.
         </p>
       </div>
-
       {/* Progress Bar */}
-      <div className="w-full flex items-center justify-center gap-2 mb-6">
-        <div></div>
-        {Array.from({ length: totalSteps }).map((_, index) => (
-          <div
-            key={index}
-            className={`h-2 w-16 ${
-              index < step ? "bg-purple-500" : "bg-grey-300"
-            } rounded-lg`}
-          ></div>
-        ))}
-        <p className="text-sm text-grey-600">{`Step ${step}/4`}</p>
-      </div>
+      <Progress />
 
       {/* Form */}
       <form
@@ -54,41 +85,16 @@ const Onboard1 = () => {
       >
         {/* Name Fields */}
         <div className="flex flex-col md:flex-row gap-4 ">
-          <Input
-            name="first"
-            img="/assets/user-02.svg"
-            label="First Name"
-            errorMessage="This is a required field"
-            type="text"
-            id="first-name"
-          />
-          <Input
-            name="last"
-            label="Last Name"
-            errorMessage="This is a required field"
-            type="text"
-            id="last-name"
-          />
+        <Input icon={'/assets/user-02.svg'} ref={firstNameRef} name="firstName" label="First Name" error={error.firstName} />
+        <Input ref={lastNameRef} name="lastName" label="Last Name" error={error.lastName} />
         </div>
 
         {/* Address Field */}
-        <Input
-          img="/assets/marker-pin-01.svg"
-          label="Home Address"
-          errorMessage="This is a required field"
-          type="text"
-          id="home-address"
-        />
+        <Input icon={'/assets/marker-pin-01.svg'} ref={addressRef} name="homeAddress" label="Home Address" error={error.homeAddress} />
 
         {/* Date of Birth */}
-        <Input
-          img="/assets/calendar.svg"
-          label="Date of Birth"
-          errorMessage="This is a required field"
-          type="date"
-          id="dob"
-          className="appearance-none"
-        />
+        <Input icon={'/assets/calendar.svg'} ref={dobRef} name="dateOfBirth" type="date" label="Date of Birth" error={error.dateOfBirth} />
+
 
         {/* Gender Section */}
         <div className="mb-6">

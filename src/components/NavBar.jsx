@@ -23,7 +23,7 @@ const NavBar = () => {
           Health providers
         </p>
 
-        <button className="bg-gray-50 text-gray-800 text-center px-8 py-3 rounded-sm font-light border  border-grey-800 hover:cursor-pointer hover:scale-105 transition-all duration-300">
+        <button className="bg-white text-gray-800 text-center px-8 py-3 rounded-sm font-light border  border-grey-800 hover:cursor-pointer hover:scale-105 transition-all duration-300">
           Sign in
         </button>
       </div>

@@ -1,10 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import Input from "../../components/Input";
+import Progress from "../../components/Progress";
 
 const Onboard3 = () => {
-  const { step } = useParams();
-  const totalSteps = 4;
+
   const [error, setError] = useState();
   const navigate = useNavigate();
 
@@ -22,22 +22,7 @@ const Onboard3 = () => {
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full flex items-center justify-center gap-4 mb-6">
-        <div className="flex gap-2">
-          <img className="w-6 h-6" src="/assets/arrow-narrow-left.svg" alt="" />
-          <p>Back</p>
-        </div>
-        <div></div>
-        {Array.from({ length: totalSteps }).map((_, index) => (
-          <div
-            key={index}
-            className={`h-2 w-16 ${
-              index < step ? "bg-purple-500" : "bg-grey-300"
-            } rounded`}
-          ></div>
-        ))}
-        <p className="text-sm text-grey-600">{`Step ${step}/4`}</p>
-      </div>
+      <Progress />
 
       {/* Form */}
       <form className="w-full max-w-md flex flex-col gap-4">
