@@ -180,7 +180,7 @@ const SignUp = () => {
                           phoneNumber: undefined,
                         }));
                         phoneNumberRef.current.value = "";
-                        setPhoneNumber("+234");
+                        setPhoneNumber("+234"); 
                       }}
                       src="/assets/x-square.svg"
                       className=""
@@ -346,7 +346,7 @@ const SignUp = () => {
               or
             </p>
           </div>
-          <button className="flex items-center justify-center gap-4 bg-grey-50 text-grey-800 w-full border cursor-pointer py-3 hover:scale-105 transition-all duration-500 rounded-sm">
+          <button className=" flex items-center justify-center gap-4 bg-grey-50 text-grey-800 w-full border cursor-pointer py-3 hover:scale-105 transition-all duration-500 rounded-sm">
             <img className="w-6 h-6" src="/assets/google.svg" alt="" />
             Sign up with Google
           </button>

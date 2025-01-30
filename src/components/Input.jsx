@@ -11,7 +11,7 @@ const Input = forwardRef(
       onChange,
       error,
       icon,
-      options,
+  
     },
     ref
   ) => {

@@ -5,6 +5,7 @@ import SignUp from './pages/SignUp'
 import Auth from './pages/Auth'
 import Onboarding from './pages/Onboarding '
 import Login from './pages/Login'
+import ForgotPassword from './pages/ForgotPassword'
 
 
 
@@ -18,6 +19,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/signup" element={<SignUp/>}/>
       <Route path="/login" element={<Login />} />
+      <Route path="/forgotPassword" element={<ForgotPassword />} />
       <Route path='/authentication' element={<Auth/>}/>
       <Route path="/onboarding/:step" element={<Onboarding/>}/>
      

@@ -1,12 +1,26 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Input from "../../components/Input";
 import Progress from "../../components/Progress";
+import useOnboardingStore from "../../store/onBoardingStore";
 
 const Onboard2 = () => {
-
-  const [error, setError] = useState();
   const navigate = useNavigate();
+  const {  updateOnboardingData } = useOnboardingStore();
+  const [selectedOptions, setSelectedOptions] = useState({
+    medicalConditions: "",
+    allergies: "",
+    bloodType: "",
+    genotype: "",
+    surgicalProcedures: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setSelectedOptions((prevState) => ({ ...prevState, [name]: value }));
+    if (value) {
+      updateOnboardingData("page2", { [name]: value });
+    }
+  };
 
   return (
     <div className="flex flex-col items-center p-6 my-8 mx-6 bg-grey-50  md:w-[40%] md:m-auto ">
@@ -28,26 +42,34 @@ const Onboard2 = () => {
         {/* Name Fields */}
         <select
           className="w-full text-grey-400 bg-grey-50 text-sm border border-grey-400  rounded-sm px-4 py-3 focus:border-primary-500"
-          name=""
+          name="medicalConditions"
           id=""
+          value={selectedOptions.medicalConditions}
+          onChange={handleChange}
         >
-          <option className="" value="--">Existing medical conditions</option>
-          <option value="">Asthma</option>
-          <option value="">
+          <option className="" value="--">
+            Existing medical conditions
+          </option>
+          <option value="asthma">Asthma</option>
+          <option value="arthritis">
             Arthritis (e.g., Rheumatoid Arthritis, Osteoarthritis)
           </option>
-          <option value="">Breast Cancer</option>
-          <option value="">Congestibe Heart Failure</option>
-          <option value="">HIV/AIDS</option>
-          <option value="">Epilepsy</option>
-          <option value="">Hepatitis (A, B, C)</option>
-          <option value="">Type 2 Diabetes</option>
-          <option value="">Sickle Cell Disease</option>
+          <option value="breast_cancer">Breast Cancer</option>
+          <option value="heart_failure">Congestibe Heart Failure</option>
+          <option value="hiv_aids">HIV/AIDS</option>
+          <option value="epilepsy">Epilepsy</option>
+          <option value="hepititis">Hepatitis (A, B, C)</option>
+          <option value="diabetes">Type 2 Diabetes</option>
+          <option value="sickle_cell">Sickle Cell Disease</option>
         </select>
+
+        {/* allergies */}
         <select
           className="w-full text-grey-400 bg-grey-50 text-sm border border-grey-400 rounded-sm px-4 py-3 focus:border-primary-500"
-          name=""
+          name="allergies"
           id=""
+          value={selectedOptions.allergies}
+          onChange={handleChange}
         >
           <option value="--">Allergies</option>
           <option value="">Allergies</option>
@@ -63,48 +85,60 @@ const Onboard2 = () => {
           <option value="">Type 2 Diabetes</option>
           <option value="">Sickle Cell Disease</option>
         </select>
+
         <div className="w-full flex flex-col md:flex-row gap-4">
+          {/* blood type */}
           <select
             className="w-full text-grey-400 bg-grey-50 text-sm border border-grey-400 rounded-sm px-4 py-3"
-            name=""
+            name="bloodType"
             id=""
+            value={selectedOptions.bloodType}
+            onChange={handleChange}
           >
             <option value="--">Blood Type</option>
-            <option value="">A Positive (A+)</option>
-            <option value="">A Negative (A-)</option>
-            <option value="">B Positive (B+)</option>
-            <option value="">B Negative (B-)</option>
-            <option value="">AB Negative (AB+)</option>
-            <option value="">AB Positive (AB-)</option>
-            <option value="">O Positive (O+)</option>
-            <option value="">O Negative (O-)</option>
+            <option value="A+">A Positive (A+)</option>
+            <option value="A-">A Negative (A-)</option>
+            <option value="B+">B Positive (B+)</option>
+            <option value="B-">B Negative (B-)</option>
+            <option value="AB+">AB Positive (AB+)</option>
+            <option value="AB-">AB Negative (AB-)</option>
+            <option value="O+">O Positive (O+)</option>
+            <option value="O-">O Negative (O-)</option>
+
             <option value=""></option>
           </select>
+
+          {/* genotype */}
           <select
             className="w-full text-grey-400 bg-grey-50 text-sm border border-grey-400 rounded-sm px-4 py-3"
-            name=""
+            name="genotype"
             id=""
+            value={selectedOptions.genotype}
+            onChange={handleChange}
           >
             <option value="--">Genotype</option>
-            <option value="">AA</option>
-            <option value="">AS</option>
-            <option value="">AS</option>
-            <option value="">AC</option>
-            <option value="">SC</option>
+            <option value="AA">AA</option>
+            <option value="AS">AS</option>
+            <option value="AC">AC</option>
+            <option value="SC">SC</option>
+            <option value="SS">SS</option>
           </select>
         </div>
+
+        {/* surgical procedures */}
         <select
           className="w-full text-grey-400 bg-grey-50 text-sm border border-grey-400 rounded-sm px-4 py-3"
-          name=""
+          name="surgicalProcedures"
           id=""
+          value={selectedOptions.surgicalProcedures}
+          onChange={handleChange}
         >
-          <option value="--">Post surgical procedures</option>
-          <option value="">Appendectomy</option>
-          <option value="BBL">Brazilian Butt Lift</option>
-          <option value="">Cataract Surgery</option>
-          <option value="">Coronary Artery Bypass Graft (CABG)</option>
-          <option value="">C-Section (Cesarean Delivery)</option>
-          <option value="">Gallbladder Removal</option>
+          <option value="post_surgical">Post surgical procedures</option>
+          <option value="appendectomy">Appendectomy</option>
+          <option value="cataract_surgery">Cataract Surgery</option>
+          <option value="cabg">Coronary Artery Bypass Graft (CABG)</option>
+          <option value="c_section">C-Section (Cesarean Delivery)</option>
+          <option value="gallbladder_removal">Gallbladder Removal</option>
         </select>
         <div className="w-full flex gap-4">
           <button
