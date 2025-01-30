@@ -20,7 +20,7 @@ const Input = forwardRef(
         <div className="relative">
           {/* Left Icon */}
           {icon && (
-            <span className="absolute left-2 top-1/2 transform -translate-y-1/2">
+            <span onClick={type === 'date' ? ()=> ref.current?.showPicker() : undefined} className="absolute left-2 top-1/2 transform -translate-y-1/2 cursor-pointer">
               <img src={icon} alt="" />
             </span>
           )}
@@ -55,7 +55,7 @@ const Input = forwardRef(
             } 
               rounded ${
                 icon ? "pl-10" : "pl-4"
-              } pr-2 py-4 bg-grey-50 focus:outline-none focus:ring-2 focus:ring-primary-200 placeholder-transparent `}
+              } pr-2 py-4 bg-grey-50 focus:outline-none focus:ring-2 focus:ring-primary-200 placeholder-transparent  `}
           />
 
           {/* Floating Label */}
