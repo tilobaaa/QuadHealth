@@ -2,12 +2,36 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import Input from "../../components/Input";
 import Progress from "../../components/Progress";
+import useOnboardingStore from "../../store/onBoardingStore";
+
 
 const Onboard3 = () => {
-
+  const {updateOnboardingData} = useOnboardingStore()
   const [error, setError] = useState();
   const navigate = useNavigate();
+  const [changedData, setChangedData] = useState({
+    "insuranceProvider":'',
+    "insurancePlan": "",
+    "insurancePolicyNumber":'',
+  })
 
+  const onSubmitHandler = (e)=>{
+    e.preventDefault();
+    updateOnboardingData("page3",changedData)
+
+
+  }
+
+  const handleChange = (event)=>{
+    const {name, value} = event.target;
+    setChangedData((prev)=>{
+      return {
+        ...prev, [name]: value
+      }
+
+
+    })
+  }
   return (
     <div className="flex flex-col items-center p-6 my-8 mx-6 bg-grey-50  md:w-[40%] md:m-auto">
       {/* Header Section */}
@@ -28,7 +52,7 @@ const Onboard3 = () => {
       <form className="w-full max-w-md flex flex-col gap-4">
         {/* Name Fields */}
         <select
-          className="w-full text-grey-400 bg-grey-50 text-sm border border-grey-400 rounded-sm px-4 py-3"
+          className="w-full  text-grey-400 bg-grey-50 text-sm border border-grey-400 rounded-sm px-4 py-3"
           name=""
           id=""
         >
