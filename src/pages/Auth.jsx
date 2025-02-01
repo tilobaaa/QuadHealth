@@ -34,7 +34,7 @@ const Auth = () => {
             Resend code
           </span>
         </p>
-        <button onClick={()=>{navigate('/onboarding/1')}} className="bg-primary-500 rounded-sm w-full py-3 text-grey-100 hover:scale-105 transition-all duration-500 cursor-pointer mb-4">
+        <button onClick={()=>{navigate('/login')}} className="bg-primary-500 rounded-sm w-full py-3 text-grey-100 hover:scale-105 transition-all duration-500 cursor-pointer mb-4">
           Verify Identity
         </button>
         <button  className="bg-grey-50 rounded-sm w-full py-3 text-grey-800 hover:scale-105 transition-all duration-500 cursor-pointer mb-4">

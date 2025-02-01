@@ -106,10 +106,10 @@ const Onboard4 = () => {
           </div>
 
         <div className="w-full flex gap-4">
-          <button className="w-full py-3 text-grey-50 bg-purple-500 cursor-pointer rounded-sm hover:scale-105 transition-all duration-500">
+          <button type="button" onClick={()=>{navigate('/')}} className="w-full py-3 text-grey-50 bg-purple-500 cursor-pointer rounded-sm hover:scale-105 transition-all duration-500">
             Finish
           </button>
-          <button className="w-full py-3 text-grey-800 bg-grey-50 border border-grey-800 cursor-pointer rounded-sm hover:scale-105 transition-all duration-500">
+          <button type="button" onClick={()=>{navigate('/')}} className="w-full py-3 text-grey-800 bg-grey-50 border border-grey-800 cursor-pointer rounded-sm hover:scale-105 transition-all duration-500">
             Skip
           </button>
         </div>

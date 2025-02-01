@@ -4,34 +4,30 @@ import Input from "../../components/Input";
 import Progress from "../../components/Progress";
 import useOnboardingStore from "../../store/onBoardingStore";
 
-
 const Onboard3 = () => {
-  const {updateOnboardingData} = useOnboardingStore()
+  const { updateOnboardingData } = useOnboardingStore();
   const [error, setError] = useState();
   const navigate = useNavigate();
   const [changedData, setChangedData] = useState({
-    "insuranceProvider":'',
-    "insurancePlan": "",
-    "insurancePolicyNumber":'',
-  })
+    insuranceProvider: "",
+    insurancePlan: "",
+    insurancePolicyNumber: "",
+  });
 
-  const onSubmitHandler = (e)=>{
+  const onSubmitHandler = (e) => {
     e.preventDefault();
-    updateOnboardingData("page3",changedData)
+    updateOnboardingData("page3", changedData);
+  };
 
-
-  }
-
-  const handleChange = (event)=>{
-    const {name, value} = event.target;
-    setChangedData((prev)=>{
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setChangedData((prev) => {
       return {
-        ...prev, [name]: value
-      }
-
-
-    })
-  }
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
   return (
     <div className="flex flex-col items-center p-6 my-8 mx-6 bg-grey-50  md:w-[40%] md:m-auto">
       {/* Header Section */}
@@ -102,12 +98,17 @@ const Onboard3 = () => {
           >
             Continue
           </button>
-          <button className="w-full py-3 text-grey-800 bg-grey-50 border border-grey-800 cursor-pointer rounded-sm hover:scale-105 transition-all duration-500">
+          <button
+            onClick={() => {
+              navigate("/onboarding/4");
+            }}
+            className="w-full py-3 text-grey-800 bg-grey-50 border border-grey-800 cursor-pointer rounded-sm hover:scale-105 transition-all duration-500"
+          >
             Skip
           </button>
         </div>
       </form>
-      <button className="mt-4 py-3 rounded-sm hover:scale-105 duration-100 cursor-pointer">
+      <button type='button' onClick={()=>{navigate('/')}} className="mt-4 py-3 rounded-sm hover:scale-105 duration-100 cursor-pointer">
         Skip onboarding
       </button>
     </div>

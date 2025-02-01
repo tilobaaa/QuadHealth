@@ -149,12 +149,12 @@ const Onboard2 = () => {
           >
             Continue
           </button>
-          <button className="w-full py-3 text-grey-800 bg-grey-50 border border-grey-800 cursor-pointer rounded-sm hover:scale-105 transition-all duration-500">
+          <button type='button' onClick={()=>{navigate('/onboarding/3')}} className="w-full py-3 text-grey-800 bg-grey-50 border border-grey-800 cursor-pointer rounded-sm hover:scale-105 transition-all duration-500">
             Skip
           </button>
         </div>
       </form>
-      <button className="mt-4 py-3 rounded-sm hover:scale-105 duration-100 cursor-pointer">
+      <button onClick={()=>{navigate('/')}} className="mt-4 py-3 rounded-sm hover:scale-105 duration-100 cursor-pointer">
         Skip onboarding
       </button>
     </div>

@@ -2,11 +2,13 @@
 // import { useState } from "react";
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   // const [showMenu, setShowMenu] = useState(false);
   // const [token, setToken] = useState();
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(false);
+  const navigate = useNavigate()
   return (
     <div className="py-6 px-3.5 sm:p-6 flex items-center justify-between text-sm sm:py-4 sm:mb-5 sm:px-16 bg-white w-full">
       <img
@@ -38,7 +40,9 @@ const NavBar = () => {
             Health providers
           </p>
 
-          <button className="bg-white text-gray-800 text-center px-8 py-3 rounded-sm font-light border  border-grey-800 hover:cursor-pointer hover:scale-105 transition-all duration-300">
+          <button onClick={()=>{
+            navigate('/signup')
+          }} className="bg-white text-gray-800 text-center px-8 py-3 rounded-sm font-light border  border-grey-800 hover:cursor-pointer hover:scale-105 transition-all duration-300">
             Sign in
           </button>
         </div>

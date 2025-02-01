@@ -56,17 +56,16 @@ const Login = () => {
 
     console.log(emailRef.current.value);
     console.log(passwordRef.current.value);
-  
 
     const formData = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
     };
-    
+
     try {
       await validationSchema.validate(formData, { abortEarly: false });
-      updateSignupData(formData);
-      navigate("/authentication");
+
+      navigate("/onboarding/1");
     } catch (error) {
       console.log("Validation Errors:", error.inner);
       const newErrors = {};
@@ -212,16 +211,15 @@ const Login = () => {
               or
             </p>
           </div>
-         <div className="flex flex-col gap-4">
-         <button className=" flex items-center justify-center gap-4 bg-grey-50 text-grey-800 w-full border cursor-pointer py-3 hover:scale-105 transition-all duration-500 rounded-sm ">
-            + Sign In with phone number
-          </button>
-          <button className=" flex items-center justify-center gap-4 bg-grey-50 text-grey-800 w-full border cursor-pointer py-3 hover:scale-105 transition-all duration-500 rounded-sm ">
-            <img className="w-6 h-6" src="/assets/google.svg" alt="" />
-            Sign in with Google
-          </button>
-         </div>
-          
+          <div className="flex flex-col gap-4">
+            <button className=" flex items-center justify-center gap-4 bg-grey-50 text-grey-800 w-full border cursor-pointer py-3 hover:scale-105 transition-all duration-500 rounded-sm ">
+              + Sign In with phone number
+            </button>
+            <button className=" flex items-center justify-center gap-4 bg-grey-50 text-grey-800 w-full border cursor-pointer py-3 hover:scale-105 transition-all duration-500 rounded-sm ">
+              <img className="w-6 h-6" src="/assets/google.svg" alt="" />
+              Sign in with Google
+            </button>
+          </div>
         </div>
         <p className="text-sm text-grey-500 text-center">
           © 2025, QuadHealth Co.
@@ -235,4 +233,3 @@ const Login = () => {
 };
 
 export default Login;
-
