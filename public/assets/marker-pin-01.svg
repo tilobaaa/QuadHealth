@@ -1,8 +1,8 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="marker-pin-01">
 <g id="Icon">
-<path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="#939897" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M12 22C16 18 20 14.4183 20 10C20 5.58172 16.4183 2 12 2C7.58172 2 4 5.58172 4 10C4 14.4183 8 18 12 22Z" stroke="#939897" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.9987 10.8327C11.3794 10.8327 12.4987 9.71339 12.4987 8.33268C12.4987 6.95197 11.3794 5.83268 9.9987 5.83268C8.61799 5.83268 7.4987 6.95197 7.4987 8.33268C7.4987 9.71339 8.61799 10.8327 9.9987 10.8327Z" stroke="#595C5B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.9987 18.3327C13.332 14.9993 16.6654 12.0146 16.6654 8.33268C16.6654 4.65078 13.6806 1.66602 9.9987 1.66602C6.3168 1.66602 3.33203 4.65078 3.33203 8.33268C3.33203 12.0146 6.66536 14.9993 9.9987 18.3327Z" stroke="#595C5B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
 </svg>
