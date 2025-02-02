@@ -2,13 +2,32 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate()
+  const handleAuthentication = async () => {
+    // get otp from backend for the user
+    const res = await axios.get("users/verify-otp");
+
+    // if otp from backend === input from user
+    if (res.data.otp === "") {
+      // procede to login
+    } else {
+       // show error message
+    }
+   
+  };
   return (
     <div className="flex-grow flex flex-col justify-center w-full bg-grey-100 relative">
       <div className="bg-grey-50 m-6 sm:m-20 md:m-auto p-10 lg:w-1/3 ">
         <div className="flex gap-2">
-          <img onClick={()=>{navigate('/signup')}} className="w-6 h-6 cursor-pointer" src="/assets/arrow-narrow-left.svg"  alt="" />
+          <img
+            onClick={() => {
+              navigate("/signup");
+            }}
+            className="w-6 h-6 cursor-pointer"
+            src="/assets/arrow-narrow-left.svg"
+            alt=""
+          />
           <p className="text-grey-800 text-lg">Back</p>
         </div>
         <div className="mt-4 md:mt-6 ">
@@ -16,8 +35,9 @@ const Auth = () => {
             Let’s verify your identity
           </p>
           <p className="text-lg text-grey-700 mt-4 ">
-            We’ve sent a 6-digit code to your (+234) 8944356890 to ensure <br className="hidden md:inline"/>{" "}
-            your account is secure do not share this code with anyone.
+            We’ve sent a 6-digit code to your (+234) 8944356890 to ensure{" "}
+            <br className="hidden md:inline" /> your account is secure do not
+            share this code with anyone.
           </p>
         </div>
         <div className="flex my-10 w-full gap-4">
@@ -34,10 +54,15 @@ const Auth = () => {
             Resend code
           </span>
         </p>
-        <button onClick={()=>{navigate('/login')}} className="bg-primary-500 rounded-sm w-full py-3 text-grey-100 hover:scale-105 transition-all duration-500 cursor-pointer mb-4">
+        <button
+          onClick={() => {
+            navigate("/login");
+          }}
+          className="bg-primary-500 rounded-sm w-full py-3 text-grey-100 hover:scale-105 transition-all duration-500 cursor-pointer mb-4"
+        >
           Verify Identity
         </button>
-        <button  className="bg-grey-50 rounded-sm w-full py-3 text-grey-800 hover:scale-105 transition-all duration-500 cursor-pointer mb-4">
+        <button className="bg-grey-50 rounded-sm w-full py-3 text-grey-800 hover:scale-105 transition-all duration-500 cursor-pointer mb-4">
           Verify with email address
         </button>
       </div>

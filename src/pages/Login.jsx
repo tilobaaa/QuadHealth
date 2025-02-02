@@ -64,7 +64,7 @@ const Login = () => {
 
     try {
       await validationSchema.validate(formData, { abortEarly: false });
-
+      await axios.post("auth/login", formData);
       navigate("/onboarding/1");
     } catch (error) {
       console.log("Validation Errors:", error.inner);
@@ -199,6 +199,7 @@ const Login = () => {
             <p className="mt-6 text-grey-800 text-lg">Forgot password?</p>
 
             <button
+            
               type="submit"
               className="mt-10 w-full py-3 text-grey-100 bg-primary-500 hover:scale-105 cursor-pointer transition-all duration-500 rounded-sm disabled:cursor-not-allowed "
             >
@@ -233,3 +234,5 @@ const Login = () => {
 };
 
 export default Login;
+
+

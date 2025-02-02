@@ -3,6 +3,7 @@ import LeftSide from "../components/LeftSide";
 import { useNavigate } from "react-router-dom";
 import useOnboardingStore from "../store/onBoardingStore";
 import * as Yup from "yup";
+import axios from "axios";
 
 const SignUp = () => {
   const [errorState, setErrorState] = useState({});
@@ -71,6 +72,8 @@ const SignUp = () => {
       try {
         await validationSchema.validate(formData, { abortEarly: false });
         updateSignupData(formData);
+        await axios.post('users/signup', formData);
+        await axios.post('users/verify-otp', formData.email)
         navigate("/authentication");
       } catch (error) {
         console.log("Validation Errors:", error.inner);
