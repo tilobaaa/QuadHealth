@@ -4,6 +4,7 @@ import {
   coreTeam,
   recommendedCheckup,
 } from "../../public/assets/assets";
+import DoctorsAppointed from "./doctorsAppointed";
 
 const Checklist = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -29,9 +30,10 @@ const Checklist = () => {
             <p>Book an appointment</p>
           </button>
         </div>
-        <div className="flex items-center justify-center">
+        {/* <div className="flex items-center justify-center">
           <img src="/assets/Task_empty.svg" alt="" />
-        </div>
+        </div> */}
+        <DoctorsAppointed />  
       </div>
 
       {/* checklist */}

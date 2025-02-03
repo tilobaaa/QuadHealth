@@ -1,10 +1,14 @@
 import React from "react";
 import MedicalFields from "../components/medicalFields";
 import Checklist from "../components/Checklist";
+import CustomDatePicker from "../components/CustomDatePicker";
+import HomeInput from "../components/HomeInput";
+import CityInput from "../components/CityInput";
+import SearchResults from "../components/SearchResults";
 
 const Home = () => {
   return (
-    <div className="py-10 px-20 w-full flex-grow bg-grey-100">
+    <div className="py-10 px-20 w-full flex-grow bg-grey-100 relative">
       <div className="flex justify-between items-center mb-6">
         <div>
           <h1 className="text-grey-800 text-3xl">Good Morning!</h1>
@@ -28,22 +32,8 @@ const Home = () => {
       </div>
 
       <div className="w-full flex">
-        <div className="flex-5 relative ">
-          <input
-            className="w-full h-full pr-4 pl-10  py-6 border border-grey-400"
-            type="text"
-            placeholder="Search for  condition,  field or doctor name "
-          />
-          <img className="absolute top-1/2 -translate-1/2 left-6" src="/assets/input-search-md.svg" alt="" />
-        </div>
-        <div className="flex-3 relative ">
-          <input
-            className="w-full h-full pr-4 pl-10 py-6 border border-grey-400"
-            type="text"
-            placeholder="Your city, state or location"
-          />
-          <img className="absolute top-1/2 -translate-1/2 left-6" src="/assets/marker-pin-01.svg" alt="" />
-        </div>
+        <HomeInput/>
+        <CityInput/>
         <div className="flex-3 relative ">
         <input
           className="w-full h-full pr-4 pl-10 py-6 border border-grey-400"
@@ -60,6 +50,8 @@ const Home = () => {
 
       <MedicalFields/>
       <Checklist/>
+      <SearchResults/>
+      
     </div>
   );
 };
