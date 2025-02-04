@@ -1,48 +1,43 @@
-import { create } from 'zustand';
+import { createContext, useState } from "react";
 
-const useOnboardingStore = create((set) => ({
-  // Initial state for signup and onboarding data
-  signupData: {
-    email: '',
-    password: '',
-    phoneNumber: '',
-  },
-  onboardingData: {
-    page1: {},
-    page2: {},
-    page3: {},
-    page4: {},
-  },
+export const UserContext = createContext();
 
-  // Actions to update data
-  updateSignupData: (newData) =>
-    set((state) => ({
-      signupData: { ...state.signupData, ...newData },
-    })),
+export const UserProvider = ({ children }) => {
+  const [userData, setUserData] = useState({
+    email: "",
+    phoneNumber: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    homeAddress: "",
+    dateOfBirth: "",
+    gender: "",
+    existingMedicalConditions: [],
+    allergies: [],
+    bloodType: "",
+    genotype: "",
+    postSurgicalProcedures: [],
+    insuranceProvider: "",
+    insurancePlan: "",
+    policyNumber: "",
+    emergencyContacts: [],
+  });
 
-  updateOnboardingData: (page, newData) =>
-    set((state) => ({
-      onboardingData: {
-        ...state.onboardingData,
-        [page]: { ...state.onboardingData[page], ...newData },
-      },
-    })),
+  const updateUser = (newData) => {
+    setUserData((prev) => ({ ...prev, ...newData }));
+  };
 
-  // Reset the entire store if needed
-  reset: () =>
-    set({
-      signupData: {
-        email: '',
-        password: '',
-        phone: '',
-      },
-      onboardingData: {
-        page1: {},
-        page2: {},
-        page3: {},
-        page4: {},
-      },
-    }),
-}));
+  const addEmergencyContact = (contact) => {
+    setUserData((prev) => ({
+      ...prev,
+      emergencyContacts: [...prev.emergencyContacts, contact],
+    }));
+  };
 
-export default useOnboardingStore;
+  return (
+    <UserContext.Provider value={{ userData, updateUser, addEmergencyContact }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
+
