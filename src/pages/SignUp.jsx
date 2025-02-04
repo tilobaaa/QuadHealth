@@ -1,15 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import LeftSide from "../components/LeftSide";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import {UserContext} from '../store/onBoardingStore'
+import useOnboardingStore from "../store/onBoardingStore";
 import * as Yup from "yup";
 import axios from "axios";
 
 const SignUp = () => {
   const [errorState, setErrorState] = useState({});
   const navigate = useNavigate();
-  const {updateUser} = useContext(UserContext)
+  const { updateSignupData } = useOnboardingStore();
 
   const [termsChecked, setTermsChecked] = useState(false);
   const [receiveEmail, setReceiveEmail] = useState(false);
@@ -72,9 +71,7 @@ const SignUp = () => {
     if (termsChecked) {
       try {
         await validationSchema.validate(formData, { abortEarly: false });
-        updateUser({ email: formData.email})
-        await axios.post('users/signup', formData);
-        await axios.post('users/verify-otp', formData.email)
+        updateSignupData(formData);
         navigate("/authentication");
       } catch (error) {
         console.log("Validation Errors:", error.inner);
