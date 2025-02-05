@@ -72,8 +72,8 @@ const SignUp = () => {
       try {
         await validationSchema.validate(formData, { abortEarly: false });
         updateSignupData(formData);
-       const res = await axios.post("https://healthcare-backend-jslb.onrender.com/v1/users", formData);
-       console.log(res.data);
+      //  const res = await axios.post("https://healthcare-backend-jslb.onrender.com/v1/users", formData);
+      //  console.log(res.data);
         navigate("/authentication");
       } catch (error) {
         console.log("Caught Error:", error);
