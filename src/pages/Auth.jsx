@@ -40,13 +40,9 @@ const Auth = () => {
   const handleSubmit = async () => {
     const enteredOtp = otp.join(""); // Convert array to string
     try {
-      const res = await axios.get("users/verify-otp");
-
-      if (enteredOtp === '123456') {
-        navigate("/login");
-      } else {
-        alert("Invalid OTP. Try again.");
-      }
+      const res = await axios.post("https://healthcare-backend-jslb.onrender.com/v1/users/verify-otp", enteredOtp);
+      console.log(res.data)
+     
     } catch (error) {
       console.error("Error verifying OTP", error);
     }

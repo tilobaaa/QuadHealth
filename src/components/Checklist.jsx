@@ -4,7 +4,7 @@ import {
   coreTeam,
   recommendedCheckup,
 } from "../../public/assets/assets";
-import DoctorsAppointed from "./doctorsAppointed";
+import DoctorsAppointed from "./DoctorsAppointed";
 
 const Checklist = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
