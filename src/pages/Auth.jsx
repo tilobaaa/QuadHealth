@@ -46,6 +46,7 @@ const Auth = () => {
     // } catch (error) {
     //   console.error("Error verifying OTP", error);
     // }
+    navigate("/login");
   };
 
   return (
