@@ -72,14 +72,24 @@ const SignUp = () => {
       try {
         await validationSchema.validate(formData, { abortEarly: false });
         updateSignupData(formData);
+       const res = await axios.post("https://healthcare-backend-jslb.onrender.com/v1/users", formData);
+       console.log(res.data);
         navigate("/authentication");
       } catch (error) {
-        console.log("Validation Errors:", error.inner);
-        const newErrors = {};
-        error.inner.forEach((err) => {
-          newErrors[err.path] = err.message; //Store error message by field name
-        });
-        setErrorState(newErrors);
+        console.log("Caught Error:", error);
+
+        if (error.name === "ValidationError") {
+          const newErrors = {};
+          error.inner.forEach((err) => {
+            newErrors[err.path] = err.message;
+          });
+          setErrorState(newErrors);
+        } else if (error.response) {
+          console.log("Server Error:", error.response.data);
+          setErrorState({ server: error.response.data.message || "Something went wrong!" });
+        } else {
+          console.log("Unexpected Error:", error.message);
+        }
       }
     } else {
       setNoCheckOut(true);

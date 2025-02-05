@@ -7,36 +7,15 @@ import * as Yup from "yup";
 const Login = () => {
   const [errorState, setErrorState] = useState({});
   const navigate = useNavigate();
-  const { updateSignupData } = useOnboardingStore();
-
-  const [termsChecked, setTermsChecked] = useState(false);
-  const [receiveEmail, setReceiveEmail] = useState(false);
   const [noCheckOut, setNoCheckOut] = useState(false);
 
-  const [phoneNumber, setPhoneNumber] = useState("+234");
 
-  const handleChange = (e) => {
-    let value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
-    value = value.replace(/^234/, ""); // Remove leading 234 if it already exists
 
-    let formatted = "+234";
-
-    if (value.length > 0) {
-      formatted += ` ${value.slice(0, 3)}`;
-    }
-    if (value.length > 3) {
-      formatted += ` ${value.slice(3, 7)}`;
-    }
-    if (value.length > 7) {
-      formatted += ` ${value.slice(7, 10)}`;
-    }
-
-    setPhoneNumber(formatted);
-  };
+  
 
   const emailRef = useRef("");
   const passwordRef = useRef("");
-  const phoneNumberRef = useRef("");
+
 
   useEffect(() => {
     console.log(errorState);
@@ -64,7 +43,7 @@ const Login = () => {
 
     try {
       await validationSchema.validate(formData, { abortEarly: false });
-      await axios.post("auth/login", formData);
+      
       navigate("/onboarding/1");
     } catch (error) {
       console.log("Validation Errors:", error.inner);

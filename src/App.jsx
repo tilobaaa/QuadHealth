@@ -22,6 +22,7 @@ function App() {
       <Route path="/forgotPassword" element={<ForgotPassword />} />
       <Route path='/authentication' element={<Auth/>}/>
       <Route path="/onboarding/:step" element={<Onboarding/>}/>
+      <Route path='/'/>
      
     </Routes>
    </div>

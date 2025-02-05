@@ -1,8 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import useOnboardingStore from "../store/onBoardingStore";
 
 const Auth = () => {
   const navigate = useNavigate();
+  const {signupData} = useOnboardingStore();
+  const phoneNumber = signupData.phoneNumber
 
   const handleAuthentication = async () => {
     // get otp from backend for the user
@@ -35,7 +38,7 @@ const Auth = () => {
             Let’s verify your identity
           </p>
           <p className="text-lg text-grey-700 mt-4 ">
-            We’ve sent a 6-digit code to your (+234) 8944356890 to ensure{" "}
+            {`We’ve sent a 6-digit code to  ${phoneNumber} to ensure`}
             <br className="hidden md:inline" /> your account is secure do not
             share this code with anyone.
           </p>
