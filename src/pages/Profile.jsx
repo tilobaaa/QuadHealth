@@ -1,7 +1,59 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../components/Input";
 
 const Profile = () => {
+  const [docSlot, setDocSlot] = useState([]);
+  const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  const [slotIndex, setSlotIndex] = useState(0);
+  const [slotTime, setSlotTime] = useState();
+  
+  const getAvaialableSlot = () => {
+    let today = new Date();
+    let slotsArray = [];
+  
+    for (let i = 0; i < 7; i++) {
+      let currentDate = new Date(today);
+      currentDate.setDate(today.getDate() + i);
+  
+      let endTime = new Date();
+      endTime.setDate(today.getDate() + i);
+      endTime.setHours(12, 0, 0, 0);
+  
+      if (today.getDate() === currentDate.getDate()) {
+        currentDate.setHours(
+          currentDate.getHours() > 10 ? currentDate.getHours() + 1 : 10
+        );
+        currentDate.setMinutes(currentDate.getMinutes() > 30 ? 30 : 0);
+      } else {
+        currentDate.setHours(10);
+        currentDate.setMinutes(0);
+      }
+  
+      let timeSlots = [];
+      while (currentDate < endTime) {
+        let formattedTime = currentDate.toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+  
+        timeSlots.push({
+          datetime: new Date(currentDate),
+          time: formattedTime,
+        });
+  
+        currentDate.setMinutes(currentDate.getMinutes() + 30);
+      }
+  
+      slotsArray.push(timeSlots);
+    }
+  
+    setDocSlot(slotsArray);
+  };
+  
+  useEffect(() => {
+    getAvaialableSlot();
+  }, []);
+  
   return (
     <div className="flex-grow bg-grey-100 py-10 px-20">
       <div className="grid grid-cols-3">
@@ -224,14 +276,13 @@ const Profile = () => {
                   <img src="/assets/star.svg" alt="" />
                   <img src="/assets/star.svg" alt="" />
                 </div>
-
               </div>
               <p className="text-sm text-grey-600">
-                  Dr. Nuraini is the best! She listens carefully and provides
-                  personalized care. I feel reassured every time I visit. Thanks
-                  to her expertise, my backache is long gone and I can now enjoy
-                  better quality of life. I highly recommend her to anyone!
-                </p>
+                Dr. Nuraini is the best! She listens carefully and provides
+                personalized care. I feel reassured every time I visit. Thanks
+                to her expertise, my backache is long gone and I can now enjoy
+                better quality of life. I highly recommend her to anyone!
+              </p>
             </div>
             <div className="flex flex-col gap-2 my-10">
               <h4>Aishat Dosunmu</h4>
@@ -244,14 +295,13 @@ const Profile = () => {
                   <img src="/assets/star.svg" alt="" />
                   <img src="/assets/star.svg" alt="" />
                 </div>
-
               </div>
               <p className="text-sm text-grey-600">
-                  Dr. Nuraini is the best! She listens carefully and provides
-                  personalized care. I feel reassured every time I visit. Thanks
-                  to her expertise, my backache is long gone and I can now enjoy
-                  better quality of life. I highly recommend her to anyone!
-                </p>
+                Dr. Nuraini is the best! She listens carefully and provides
+                personalized care. I feel reassured every time I visit. Thanks
+                to her expertise, my backache is long gone and I can now enjoy
+                better quality of life. I highly recommend her to anyone!
+              </p>
             </div>
             <div className="flex flex-col gap-2 my-10">
               <h4>Aishat Dosunmu</h4>
@@ -264,32 +314,48 @@ const Profile = () => {
                   <img src="/assets/star.svg" alt="" />
                   <img src="/assets/star.svg" alt="" />
                 </div>
-
               </div>
               <p className="text-sm text-grey-600">
-                  Dr. Nuraini is the best! She listens carefully and provides
-                  personalized care. I feel reassured every time I visit. Thanks
-                  to her expertise, my backache is long gone and I can now enjoy
-                  better quality of life. I highly recommend her to anyone!
-                </p>
+                Dr. Nuraini is the best! She listens carefully and provides
+                personalized care. I feel reassured every time I visit. Thanks
+                to her expertise, my backache is long gone and I can now enjoy
+                better quality of life. I highly recommend her to anyone!
+              </p>
             </div>
-            
-            
           </div>
         </div>
 
         {/* right side */}
-        <div className="col-span-1 bg-grey-50">
-            <h4>Book an appointment with Dr. Khaleemah Nuraini</h4>
-            <div>
-                <img src="/assets/chevron-left.svg" alt="" />
-                <p>Saturday, 22 February, 2025</p>
-                <img src="/assets/chevron-right.svg" alt="" />
-            </div>
-            <select name="" id="">
-                <option value="">Reason for appointment</option>
-            </select>
-            {/* phone number */}
+        <div className="col-span-1 bg-grey-50 mx-10 p-4">
+          <h4>Book an appointment with Dr. Khaleemah Nuraini</h4>
+          <div>
+            <img src="/assets/chevron-left.svg" alt="" />
+            <p>Saturday, 22 February, 2025</p>
+            <img src="/assets/chevron-right.svg" alt="" />
+          </div>
+          <select name="" id="">
+            <option value="">Reason for appointment</option>
+          </select>
+          {/* phone number */}
+
+          <p>Available Appointments</p>
+          <p>Pick a suitable time for your appointment</p>
+          {/* booking slots */}
+          <div className="">
+  <div>
+    {docSlot.length > 0 &&
+      docSlot.map((item, index) => (
+        <div key={index}>
+          {item.length > 0 && (
+            <>
+              <p>{daysOfWeek[item[0].datetime.getDay()]}</p>
+              <p>{item[0].datetime.getDate()}</p>
+            </>
+          )}
+        </div>
+      ))}
+  </div>
+</div>
 
         </div>
       </div>
