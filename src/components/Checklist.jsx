@@ -22,12 +22,12 @@ const Checklist = () => {
       {/* first row */}
 
       {/* appointments */}
-      <div className="bg-grey-50 p-6 row-span-2">
-        <div className="flex justify-between text-grey-900 font-medium">
+      <div className="bg-grey-50 px-6 py-3 row-span-2">
+        <div className="flex justify-between items-center text-grey-900 font-medium">
           <p>Your Appointments</p>
-          <button className="flex rounded-sm border border-grey-800 gap-2 p-2">
+          <button className="flex  rounded-sm border border-grey-800 gap-2 p-2">
             <img className="w-6 h-6" src="/assets/plus.svg" alt="" />
-            <p>Book an appointment</p>
+            <p className="text-sm">Book an appointment</p>
           </button>
         </div>
         {/* <div className="flex items-center justify-center">
