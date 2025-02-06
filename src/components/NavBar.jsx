@@ -3,11 +3,16 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useOnboardingStore from "../store/onBoardingStore";
+
 
 const NavBar = () => {
   const [showMenu, setShowMenu] = useState(false);
   // const [token, setToken] = useState();
-  const [user, setUser] = useState(false);
+  const { signupData } = useOnboardingStore();
+  const email = signupData.email
+
+
   const navigate = useNavigate();
   return (
     <div className="py-6 px-3.5 sm:p-6 flex items-center justify-between text-sm sm:py-4 sm:mb-5 sm:px-16 bg-white w-full">
@@ -34,7 +39,7 @@ const NavBar = () => {
         <div></div>
       </div>
       {/* medium and big screens */}
-      {user ? (
+      {email ? (
         <div className="hidden sm:flex flex-row items-center gap-4">
           <div className="flex gap-1 items-center p-3 border border-grey-800 rounded-sm">
             <img className="w-6 h-6 " src="/assets/bell-01.svg" alt="" />

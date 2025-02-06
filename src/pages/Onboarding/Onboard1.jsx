@@ -5,12 +5,14 @@ import Input from "../../components/Input";
 import useOnboardingStore from "../../store/onBoardingStore";
 import Progress from "../../components/Progress";
 import * as yup from "yup";
+import axios from "axios";
 
 const Onboard1 = () => {
  
 
   const navigate = useNavigate();
   const { updateOnboardingData } = useOnboardingStore();
+
 
 
   const firstNameRef = useRef();
@@ -57,6 +59,7 @@ const Onboard1 = () => {
     try {
       await schema.validate(formData, { abortEarly: false });
       console.log(formData);
+    
       updateOnboardingData("page1", formData);
       navigate("/onboarding/2");
     } catch (err) {

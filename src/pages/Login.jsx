@@ -3,6 +3,7 @@ import LeftSide from "../components/LeftSide";
 import { useNavigate } from "react-router-dom";
 import useOnboardingStore from "../store/onBoardingStore";
 import * as Yup from "yup";
+import axios from "axios";
 
 const Login = () => {
   const [errorState, setErrorState] = useState({});
@@ -10,6 +11,7 @@ const Login = () => {
   const [noCheckOut, setNoCheckOut] = useState(false);
 
 
+ const { signupData,updateSignupData } = useOnboardingStore();
 
   
 
@@ -43,7 +45,8 @@ const Login = () => {
 
     try {
       await validationSchema.validate(formData, { abortEarly: false });
-      
+      // const res = await axios.post("https://healthcare-backend-jslb.onrender.com/v1/auth/login", formData);
+      updateSignupData({email:formData.email, password:formData.password});
       navigate("/onboarding/1");
     } catch (error) {
       console.log("Validation Errors:", error.inner);

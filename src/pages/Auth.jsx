@@ -6,7 +6,7 @@ import axios from "axios";
 const Auth = () => {
   const navigate = useNavigate();
   const { signupData } = useOnboardingStore();
-  const phoneNumber = signupData.phoneNumber;
+  const email = signupData.email;
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef([]);
 
@@ -38,15 +38,16 @@ const Auth = () => {
   };
 
   const handleSubmit = async () => {
-    // const enteredOtp = otp.join(""); // Convert array to string
-    // try {
-    //   const res = await axios.post("https://healthcare-backend-jslb.onrender.com/v1/users/verify-otp", enteredOtp);
-    //   console.log(res.data)
+    const enteredOtp = otp.join(""); // Convert array to string
+    try {
+      // const res = await axios.post("https://healthcare-backend-jslb.onrender.com/v1/users/verify-otp", {otp:enteredOtp});
+      // console.log(res.data)
+      navigate("/login");
      
-    // } catch (error) {
-    //   console.error("Error verifying OTP", error);
-    // }
-    navigate("/login");
+    } catch (error) {
+      console.error("Error verifying OTP", error);
+    }
+    
   };
 
   return (
@@ -66,7 +67,7 @@ const Auth = () => {
             Let’s verify your identity
           </p>
           <p className="text-lg text-grey-700 mt-4">
-            {`We’ve sent a 6-digit code to ${phoneNumber}.`}
+            {`We’ve sent a 6-digit code to ${email}.`}
             <br className="hidden md:inline" /> Do not share this code with
             anyone.
           </p>
@@ -102,9 +103,7 @@ const Auth = () => {
           Verify Identity
         </button>
 
-        <button className="bg-grey-50 rounded-sm w-full py-3 text-grey-800 hover:scale-105 transition-all duration-500 cursor-pointer">
-          Verify with email address
-        </button>
+      
       </div>
       <p className="text-sm text-grey-500 text-center">© 2025, QuadHealth Co.</p>
     </div>

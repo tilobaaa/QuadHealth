@@ -5,7 +5,7 @@ const useOnboardingStore = create((set) => ({
   signupData: {
     email: '',
     password: '',
-    phoneNumber: '',
+    
   },
   onboardingData: {
     page1: {},

@@ -8,6 +8,7 @@ import DoctorsAppointed from "./DoctorsAppointed";
 
 const Checklist = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const [appointments, setAppointments] = useState([0,1])
 
   const handleChange = (event) => {
     const { value, checked } = event.target;
@@ -15,6 +16,14 @@ const Checklist = () => {
     setSelectedOptions((prev) =>
       checked ? [...prev, value] : prev.filter((item) => item !== value)
     );
+  }
+
+  const toggleAll = () => {
+    if (selectedOptions.length === checklistOptions.length) {
+      setSelectedOptions([]); // Uncheck all
+    } else {
+      setSelectedOptions(checklistOptions.map((check) => check.label)); // Check all
+    }
   };
 
   return (
@@ -25,22 +34,26 @@ const Checklist = () => {
       <div className="bg-grey-50 px-6 py-3 row-span-2">
         <div className="flex justify-between items-center text-grey-900 font-medium">
           <p>Your Appointments</p>
-          <button className="flex  rounded-sm border border-grey-800 gap-2 p-2">
+          <button className="flex  rounded-sm border border-grey-800 gap-2 p-2 items-center cursor-pointer hover:scale-105 duration-500">
             <img className="w-6 h-6" src="/assets/plus.svg" alt="" />
             <p className="text-sm">Book an appointment</p>
           </button>
         </div>
-        {/* <div className="flex items-center justify-center">
+
+        {appointments.length ? <DoctorsAppointed />   : (
+          <div className="flex items-center justify-center">
           <img src="/assets/Task_empty.svg" alt="" />
-        </div> */}
-        <DoctorsAppointed />  
+        </div>
+        ) }
+        
+        
       </div>
 
       {/* checklist */}
       <div className="bg-grey-50 py-6 px-5 ">
         <div className="flex justify-between">
           <h3 className="font-medium">Your Checklist</h3>
-          <div className="border border-grey-300 w-6 h-6"></div>
+          <div className="border border-grey-300 w-6 h-6 cursor-pointer"  onClick={toggleAll}></div>
         </div>
         <div>
           {checklistOptions.map((check) => {

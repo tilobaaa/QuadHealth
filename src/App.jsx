@@ -7,17 +7,20 @@ import Onboarding from './pages/Onboarding '
 import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword'
 import Profile from './pages/Profile'
+import useOnboardingStore from './store/onBoardingStore'
+import { Navigate } from 'react-router-dom'
 
 
 
 function App() {
-  
+  const { signupData } = useOnboardingStore();
+  const email = signupData.email
 
   return (
    <div className='flex flex-col h-screen'>
     <NavBar/>
-    <Routes className='mt-16'>
-      <Route path="/" element={<Home />} />
+    <Routes>
+      <Route path="/" element={email? <Home />: <SignUp/>} />
       <Route path="/signup" element={<SignUp/>}/>
       <Route path="/login" element={<Login />} />
       <Route path="/forgotPassword" element={<ForgotPassword />} />
