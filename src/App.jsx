@@ -16,7 +16,7 @@ function App() {
   return (
    <div className='flex flex-col h-screen'>
     <NavBar/>
-    <Routes className='mt-20'>
+    <Routes className='mt-16'>
       <Route path="/" element={<Home />} />
       <Route path="/signup" element={<SignUp/>}/>
       <Route path="/login" element={<Login />} />
@@ -24,7 +24,6 @@ function App() {
       <Route path='/authentication' element={<Auth/>}/>
       <Route path="/onboarding/:step" element={<Onboarding/>}/>
       <Route path='/doctor/:id/profile' element={<Profile/>} />
-     
     </Routes>
    </div>
   )

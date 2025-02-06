@@ -72,7 +72,6 @@ const Onboard2 = () => {
           onChange={handleChange}
         >
           <option value="--">Allergies</option>
-          <option value="">Allergies</option>
           <option value="">Asthma</option>
           <option value="">
             Arthritis (e.g., Rheumatoid Arthritis, Osteoarthritis)
@@ -105,7 +104,7 @@ const Onboard2 = () => {
             <option value="O+">O Positive (O+)</option>
             <option value="O-">O Negative (O-)</option>
 
-            <option value=""></option>
+        
           </select>
 
           {/* genotype */}
