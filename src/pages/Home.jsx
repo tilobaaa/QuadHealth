@@ -5,10 +5,14 @@ import CustomDatePicker from "../components/CustomDatePicker";
 import HomeInput from "../components/HomeInput";
 import CityInput from "../components/CityInput";
 import SearchResults from "../components/SearchResults";
+import Input from '../components/Input'
+import { useRef } from "react";
+import AppointmentInput from "../components/AppointmentDate";
 
 const Home = () => {
+  const dateRef = useRef()
   return (
-    <div className="py-10 px-20 w-full flex-grow bg-grey-100 relative">
+    <div className="py-8 px-14 lg:py-10 lg:px-20 w-full flex-grow bg-grey-100 relative">
       <div className="flex justify-between items-center mb-6">
         <div>
           <h1 className="text-grey-800 text-3xl">Good Morning!</h1>
@@ -34,14 +38,28 @@ const Home = () => {
       <div className="w-full flex">
         <HomeInput/>
         <CityInput/>
-        <div className="flex-3 relative ">
+        <AppointmentInput  icon={"/assets/calendar.svg"}
+          ref={dateRef}
+          name="appointmentDate"
+          type="date"
+          label="Appointment Date"/>
+        {/* <div className="flex-1 lg-flex-3 relative ">
         <input
           className="w-full h-full pr-4 pl-10 py-6 border border-grey-400"
-          type="text"
+          type="date"
           placeholder="Your location"
         />
         <img className="absolute top-1/2 -translate-1/2 left-6" src="/assets/marker-pin-01.svg" alt="" />
-        </div>
+        </div> */}
+{/* 
+         <Input
+          icon={"/assets/calendar.svg"}
+          ref={dateRef}
+          name="appointmentDate"
+          type="date"
+          label="Appointment Date"
+
+        /> */}
        
         <button className="bg-primary-500 flex items-center rounded-sm p-6">
           <img className="m-auto" src="/assets/search-md.svg" alt="" />

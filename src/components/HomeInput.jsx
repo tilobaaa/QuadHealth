@@ -33,9 +33,9 @@ const HomeInput = () => {
   });
 
   return (
-    <div ref={dropdownRef} className="flex-5 relative ">
+    <div ref={dropdownRef} className="flex-1 lg:flex-5 relative ">
       <input
-        className="w-full h-full pr-4 pl-10  py-6 border border-grey-400"
+        className="w-full h-full py-6 sm:px-4 lg:pr-4 lg:pl-10  lg:py-6 border border-grey-400"
         type="text"
         placeholder="Search for  condition,  field or doctor name "
         onFocus={() => {

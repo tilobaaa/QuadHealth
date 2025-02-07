@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
 import Input from "../components/Input";
+import { shortText, fullText } from "../../public/assets/assets";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+
+  const navigate = useNavigate()
   const [docSlot, setDocSlot] = useState([]);
   const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
   const [slotIndex, setSlotIndex] = useState(0);
   const [slotTime, setSlotTime] = useState();
+  const [showFullText, setShowFullText] = useState(false);
 
   const getAvaialableSlot = () => {
     let today = new Date();
     let slotsArray = [];
+    //<Route path='/doctor/:id/bookAppointment' element={<AppointmentBookingForm/>} />
+   
 
     for (let i = 0; i < 7; i++) {
       let currentDate = new Date(today);
@@ -56,9 +63,9 @@ const Profile = () => {
 
   return (
     <div className="flex-grow bg-grey-100 py-10 px-20">
-      <div className="grid grid-cols-3">
+      <div className="lg:grid grid-cols-3">
         {/* left side */}
-        <div className="col-span-2 flex flex-col gap-6">
+        <div className="lg:col-span-2 flex flex-col gap-6">
           <div className=" bg-grey-50 p-4 flex gap-1 ">
             <img
               className="w-28 h-28"
@@ -95,6 +102,9 @@ const Profile = () => {
               </div>
             </div>
           </div>
+          <button onClick={()=>{navigate('/doctor/e1/bookAppointment')}}  className="w-full p-3 lg:hidden text-grey-50 bg-primary-500 rounded-sm cursor-pointer hover:scale-105 duration-500">
+            Book an Appointment
+          </button>
           <div>
             <div className="flex justify-between">
               <p>About</p>
@@ -105,28 +115,14 @@ const Profile = () => {
           </div>
           <div className="bg-grey-50 p-4">
             <p className="text-grey-700">
-              Dr. Khaleemah Nuraini is a highly respected cardiologist with over
-              15 years of experience providing comprehensive heart care to
-              patients across Nigeria and beyond. She is passionate about
-              promoting heart health and believes in treating patients with a
-              personalized, compassionate approach. After earning her Doctor of
-              Medicine (M.D.) degree from the University of Ibadan, Dr. Nuraini
-              specialized in cardiology and became certified by the West African
-              College of Physicians. She is an active member of the Nigerian
-              Medical Association (NMA) and the European Society of Cardiology
-              (ESC). Dr. Nuraini speaks English, Igbo, and French, which allows
-              her to connect deeply with diverse patients. Her services include
-              routine heart health assessments, advanced cardiovascular disease
-              treatments, and hypertension and cholesterol management. Currently
-              practicing at Randle General Hospital in Lagos, she is
-              well-regarded for her patient-centered care and exceptional
-              diagnostic skills. Patients praise her empathetic demeanor and
-              meticulous attention to detail, making her a top choice for heart
-              care in the region. In her free time, Dr. Nuraini enjoys
-              participating in community health awareness programs, reading the
-              latest medical research, and spending time with her family.
+              {showFullText ? fullText : shortText}{" "}
             </p>
-            <p className="border-bottom border-b-grey-800">See more</p>
+            <p
+              onClick={() => setShowFullText(!showFullText)}
+              className="border-bottom border-b-grey-800 cursor-pointer"
+            >
+              {showFullText ? "See less" : "See more"}
+            </p>
           </div>
           <div className="w-full grid grid-cols-2 bg-grey-50">
             <div className="col-span-1 p-4 border border-grey-300 flex flex-col gap-4">
@@ -208,7 +204,7 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="w-full bg-grey-50">
+          <div className="w-full bg-grey-50 p-4">
             <p>Office Location</p>
             <div>
               <p>Randle General Hospital, Surulere, Lagos. Nigeria</p>
@@ -326,7 +322,7 @@ const Profile = () => {
         </div>
 
         {/* right side */}
-        <div className="col-span-1 bg-grey-50 mx-10 p-4 h-fit flex flex-col gap-6">
+        <div className="hidden lg:col-span-1 bg-grey-50 mx-10 p-4 h-fit lg:flex lg:flex-col gap-6">
           <h4>Book an appointment with Dr. Khaleemah Nuraini</h4>
           <select
             className="w-full border border-grey-300 rounded-sm px-4 py-3 text-sm text-grey-400"
@@ -405,8 +401,6 @@ const Profile = () => {
           </div>
         </div>
       </div>
-
-      
     </div>
   );
 };

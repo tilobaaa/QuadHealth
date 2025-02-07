@@ -9,6 +9,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import Profile from './pages/Profile'
 import useOnboardingStore from './store/onBoardingStore'
 import { Navigate } from 'react-router-dom'
+import AppointmentBookingForm from './components/AppointmentBookingForm'
 
 
 
@@ -27,6 +28,7 @@ function App() {
       <Route path='/authentication' element={<Auth/>}/>
       <Route path="/onboarding/:step" element={<Onboarding/>}/>
       <Route path='/doctor/:id/profile' element={<Profile/>} />
+      <Route path='/doctor/:id/bookAppointment' element={<AppointmentBookingForm/>} />
     </Routes>
    </div>
   )

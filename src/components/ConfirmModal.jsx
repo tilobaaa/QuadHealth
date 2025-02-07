@@ -1,15 +1,16 @@
 import React from "react";
 
-const ConfirmModal = () => {
+const ConfirmModal = (props) => {
+  
   return (
     <div className="absolute w-full h-full top-0 left-0 flex justify-center items-center ">
-      <div className="w-full h-full bg-gray-400 opacity-50 absolute"></div>
-      <div className="p-10 border border-gray-300 rounded-sm bg-gray-50 flex flex-col gap-10 w-2/3 z-10">
+      <div onClick={props.closeModal} className="w-full h-full bg-gray-400 opacity-50 fixed"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/3 p-10 border border-gray-300 rounded-sm bg-gray-50 flex flex-col gap-10 w-4/5 z-10">
         <div className="flex justify-between items-center">
           <h1 className="font-medium text-grey-900 text-2xl">
             Review your Booking Information
           </h1>
-          <img src="/assets/x-close.svg" alt="Close" />
+          <img className="cursor-pointer" onClick={props.closeModal} src="/assets/x-close.svg" alt="Close" />
         </div>
         <div className="flex gap-2 p-4 border border-gray-300">
           <img
@@ -78,10 +79,10 @@ const ConfirmModal = () => {
           </div>
         </div>
         <div className="flex gap-4">
-          <button className="bg-primary-500 text-white px-4 py-2 rounded">
+          <button className=" cursor-pointer w-full bg-primary-500 text-grey-50 px-4 py-2 rounded  ">
             Book Appointment
           </button>
-          <button className="bg-gray-300 px-4 py-2 rounded">
+          <button className=" cursor-pointer w-full bg-gray-300 px-4 py-2 rounded hover:scale-105 duration-500">
             Edit Information
           </button>
         </div>

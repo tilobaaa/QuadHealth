@@ -1,48 +1,39 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
-const useOnboardingStore = create((set) => ({
-  // Initial state for signup and onboarding data
-  signupData: {
-    email: '',
-    password: '',
-    
-  },
-  onboardingData: {
+const useOnboardingStore = create((set) => {
+  // Load data from localStorage when the store initializes
+  const savedSignupData = JSON.parse(localStorage.getItem("signupData")) || {};
+  const savedOnboardingData = JSON.parse(localStorage.getItem("onboardingData")) || {
     page1: {},
     page2: {},
     page3: {},
     page4: {},
-  },
+  };
 
-  // Actions to update data
-  updateSignupData: (newData) =>
-    set((state) => ({
-      signupData: { ...state.signupData, ...newData },
-    })),
+  return {
+    // Initial state
+    signupData: savedSignupData,
+    onboardingData: savedOnboardingData,
 
-  updateOnboardingData: (page, newData) =>
-    set((state) => ({
-      onboardingData: {
-        ...state.onboardingData,
-        [page]: { ...state.onboardingData[page], ...newData },
-      },
-    })),
+    // Function to update signup data and save to localStorage
+    updateSignupData: (newData) =>
+      set((state) => {
+        const updatedData = { ...state.signupData, ...newData };
+        localStorage.setItem("signupData", JSON.stringify(updatedData));
+        return { signupData: updatedData };
+      }),
 
-  // Reset the entire store if needed
-  reset: () =>
-    set({
-      signupData: {
-        email: '',
-        password: '',
-        phone: '',
-      },
-      onboardingData: {
-        page1: {},
-        page2: {},
-        page3: {},
-        page4: {},
-      },
-    }),
-}));
+    // Function to update onboarding data per page and save to localStorage
+    updateOnboardingData: (page, newData) =>
+      set((state) => {
+        const updatedOnboardingData = {
+          ...state.onboardingData,
+          [page]: { ...state.onboardingData[page], ...newData },
+        };
+        localStorage.setItem("onboardingData", JSON.stringify(updatedOnboardingData));
+        return { onboardingData: updatedOnboardingData };
+      }),
+  };
+});
 
 export default useOnboardingStore;

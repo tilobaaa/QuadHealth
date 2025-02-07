@@ -5,7 +5,7 @@ const DoctorsAppointed = () => {
 
   const navigate = useNavigate()
   return (
-    <div className="flex flex-row gap-2 items-start">
+    <div className="flex flex-row gap-2 items-start mt-6">
       <img onClick={()=>{navigate('/doctor/e1/profile')}} className="cursor-pointer hover:scale-110 duration-500" src="/assets/doc1.png" alt="" />
       <div className="flex flex-col gap-2">
         <div>

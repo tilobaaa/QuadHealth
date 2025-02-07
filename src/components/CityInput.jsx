@@ -32,7 +32,7 @@ const CityInput = () => {
   });
 
   return (
-    <div ref={dropdownRef} className="flex-3 relative ">
+    <div ref={dropdownRef} className="flex-1 lg-flex-3 relative ">
       <input
         className="w-full h-full pr-4 pl-10 py-6 border border-grey-400"
         type="text"

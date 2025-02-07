@@ -114,3 +114,32 @@ export const coreTeam = [
   }
 ]
 
+export const fullText = `Dr. Khaleemah Nuraini is a highly respected cardiologist with over
+  15 years of experience providing comprehensive heart care to
+  patients across Nigeria and beyond. She is passionate about
+  promoting heart health and believes in treating patients with a
+  personalized, compassionate approach. After earning her Doctor of
+  Medicine (M.D.) degree from the University of Ibadan, Dr. Nuraini
+  specialized in cardiology and became certified by the West African
+  College of Physicians. She is an active member of the Nigerian
+  Medical Association (NMA) and the European Society of Cardiology
+  (ESC). Dr. Nuraini speaks English, Igbo, and French, which allows
+  her to connect deeply with diverse patients. Her services include
+  routine heart health assessments, advanced cardiovascular disease
+  treatments, and hypertension and cholesterol management. Currently
+  practicing at Randle General Hospital in Lagos, she is
+  well-regarded for her patient-centered care and exceptional
+  diagnostic skills. Patients praise her empathetic demeanor and
+  meticulous attention to detail, making her a top choice for heart
+  care in the region. In her free time, Dr. Nuraini enjoys
+  participating in community health awareness programs, reading the
+  latest medical research, and spending time with her family.`;
+
+  export const shortText = `Dr. Khaleemah Nuraini is a highly respected cardiologist with over
+  15 years of experience providing comprehensive heart care to
+  patients across Nigeria and beyond. She is passionate about
+  promoting heart health and believes in treating patients with a
+  personalized, compassionate approach. After earning her Doctor of
+  Medicine (M.D.) degree from the University of Ibadan, Dr. Nuraini
+  specialized in cardiology and became certified by the West African
+  College of Physicians. She is`;
