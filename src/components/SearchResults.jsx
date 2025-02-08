@@ -12,9 +12,9 @@ const SearchResults = () => {
           <img src="/assets/chevron-right.svg" alt="" />
         </div>
       </div>
-      <div className="grid grid-cols-5">
+      <div className="sm:grid grid-cols-5">
         {/* left side  */}
-        <div className="sm:col-span-2 lg:col-span-1 bg-grey-50 py-6 px-4">
+        <div className="hidden sm:col-span-2 lg:col-span-1 bg-grey-50 py-6 px-4">
           <p className="font-semibold text-grey-900">Filter</p>
           <div className="flex flex-row gap-2 mb-7">
             <button className="w-full rounded-sm px-3 py-2 font-medium text-grey-50 bg-primary-500">
@@ -52,7 +52,7 @@ const SearchResults = () => {
           </div>
         </div>
         {/* middle */}
-        <div className="col-span-3 bg-grey-50 ml-4  lg:ml-6 lg:mr-6">
+        <div className="col-span-3 bg-grey-50 sm:ml-4  lg:ml-6 lg:mr-6">
           <div className="flex flex-row justify-between my-6">
             <div className="flex flex-row gap-2 p-6 ">
               <img
@@ -82,7 +82,7 @@ const SearchResults = () => {
                 </div>
               </div>
             </div>
-            <div className=" bg-primary-500 text-grey-50 p-2 flex flex-col justify-between">
+            <div className=" bg-primary-500 text-grey-50 p-2 hidden sm:flex flex-col justify-between">
               <div>
                 <p>sat</p>
                 <p>Feb 22</p>

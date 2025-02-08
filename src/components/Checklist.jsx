@@ -27,11 +27,11 @@ const Checklist = () => {
   };
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-3 grid-rows-3 lg:grid-rows-2 gap-6 py-6">
+    <div className="flex flex-col sm:grid grid-cols-2 lg:grid-cols-3 grid-rows-3 lg:grid-rows-2 gap-6 py-6">
       {/* first row */}
 
       {/* appointments */}
-      <div className="bg-grey-50 px-6 py-3 row-span-2 flex flex-col">
+      <div className="bg-grey-50 px-6 py-3 row-span-2 flex flex-col ">
         <div className="flex justify-between items-center text-grey-900 font-medium">
           <p>Your Appointments</p>
           <button className="hidden lg-flex  rounded-sm border border-grey-800 gap-2 p-2 items-center cursor-pointer hover:scale-105 duration-500">
@@ -42,7 +42,7 @@ const Checklist = () => {
 
         {appointments.length ? <DoctorsAppointed />   : (
            <div className="flex items-center justify-center flex-1">
-           <img src="/assets/Task_empty.svg" alt="No Appointments" className="w-40" />
+           <img src="/assets/Task_empty.svg" alt="No Appointments" className="w-16 h-16 lg:w-40 lg-h-40" />
          </div>
         ) }
         

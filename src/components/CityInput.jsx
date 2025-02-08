@@ -59,7 +59,7 @@ const CityInput = () => {
         />
       )}
       {isFocused && (
-        <div className="absolute w-full mt-1 bg-white border rounded-md shadow-md max-h-48 overflow-y-auto">
+        <div className="absolute w-full mt-1 bg-white border rounded-md shadow-md max-h-48 overflow-y-auto z-50">
           {filteredOptions.length > 0 ? (
             filteredOptions.map((option, index) => (
               <div
