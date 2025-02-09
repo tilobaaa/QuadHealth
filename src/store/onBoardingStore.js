@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 const useOnboardingStore = create((set) => {
   // Load data from localStorage when the store initializes
-  const savedSignupData = JSON.parse(localStorage.getItem("signupData")) || {};
+  const savedSignupData =  {};
   const savedOnboardingData = JSON.parse(localStorage.getItem("onboardingData")) || {
     page1: {},
     page2: {},

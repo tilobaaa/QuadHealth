@@ -15,7 +15,7 @@ import AppointmentBookingForm from './components/AppointmentBookingForm'
 
 function App() {
   const { signupData } = useOnboardingStore();
-  const email = signupData.email
+  const email = signupData.email;
 
   return (
    <div className='flex flex-col h-screen'>

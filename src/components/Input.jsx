@@ -2,17 +2,7 @@ import { forwardRef } from "react";
 
 const Input = forwardRef(
   (
-    {
-      label,
-      type = "text",
-      name,
-      setError,
-      value,
-      onChange,
-      error,
-      icon,
-  
-    },
+    { label, type = "text", name, setError, value, onChange, error, icon },
     ref
   ) => {
     return (
@@ -20,7 +10,12 @@ const Input = forwardRef(
         <div className="relative">
           {/* Left Icon */}
           {icon && (
-            <span onClick={type === 'date' ? ()=> ref.current?.showPicker() : undefined} className="absolute left-2 top-1/2 transform -translate-y-1/2 cursor-pointer">
+            <span
+              onClick={
+                type === "date" ? () => ref.current?.showPicker() : undefined
+              }
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+            >
               <img src={icon} alt="" />
             </span>
           )}
@@ -28,8 +23,7 @@ const Input = forwardRef(
             <span className="absolute right-2 top-1/2 transform -translate-y-1/2">
               <img
                 onClick={() => {
-                  setError("");
-
+                  setError('')
                   ref.current.value = "";
                 }}
                 src="/assets/x-square.svg"

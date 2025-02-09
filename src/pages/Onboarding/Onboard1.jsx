@@ -8,12 +8,12 @@ import * as yup from "yup";
 import axios from "axios";
 
 const Onboard1 = () => {
- 
-
   const navigate = useNavigate();
   const { updateOnboardingData } = useOnboardingStore();
 
-
+  const today = new Date();
+  const eighteenYearsAgo = new Date();
+  eighteenYearsAgo.setFullYear(today.getFullYear() - 18);
 
   const firstNameRef = useRef();
   const lastNameRef = useRef();
@@ -28,7 +28,10 @@ const Onboard1 = () => {
     firstName: yup.string().required("First name is required"),
     lastName: yup.string().required("Last name is required"),
     homeAddress: yup.string().required("Address is required"),
-    dateOfBirth: yup.date().required("Date of birth is required"),
+    dateOfBirth: yup
+      .date()
+      .required("Date of birth is required")
+      .max(eighteenYearsAgo, "You must be at least 18 years old"),
     gender: yup
       .string()
       .oneOf(["Male", "Female"])
@@ -42,7 +45,7 @@ const Onboard1 = () => {
   };
 
   const handleNext = async (e) => {
-    console.log(gender)
+    console.log(gender);
     e.preventDefault();
     const formData = {
       firstName: firstNameRef.current.value,
@@ -52,14 +55,14 @@ const Onboard1 = () => {
       gender,
     };
 
-    console.log( formData)
+    console.log(formData);
 
     //  gender,
 
     try {
       await schema.validate(formData, { abortEarly: false });
       console.log(formData);
-    
+
       updateOnboardingData("page1", formData);
       navigate("/onboarding/2");
     } catch (err) {
@@ -68,7 +71,7 @@ const Onboard1 = () => {
         errors[e.path] = e.message;
       });
       setError(errors);
-      console.log(errors)
+      console.log(errors);
     }
   };
 
@@ -157,7 +160,10 @@ const Onboard1 = () => {
             </label>
 
             {/* male */}
-            <label htmlFor="male" className="flex flex-col items-center w-1/2 p-4 border relative border-grey-300 rounded-md cursor-pointer hover:border-purple-500">
+            <label
+              htmlFor="male"
+              className="flex flex-col items-center w-1/2 p-4 border relative border-grey-300 rounded-md cursor-pointer hover:border-purple-500"
+            >
               <img
                 src="/assets/group-male.svg"
                 alt="Male"
@@ -176,7 +182,9 @@ const Onboard1 = () => {
               />
             </label>
           </div>
-          {error.gender && <p className="text-error-500 text-sm">{error.gender}</p>}
+          {error.gender && (
+            <p className="text-error-500 text-sm">{error.gender}</p>
+          )}
         </div>
 
         {/* Submit Button */}

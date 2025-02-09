@@ -46,7 +46,7 @@ const Login = () => {
     try {
       await validationSchema.validate(formData, { abortEarly: false });
       // const res = await axios.post("https://healthcare-backend-jslb.onrender.com/v1/auth/login", formData);
-      updateSignupData({email:formData.email, password:formData.password});
+      // updateSignupData({});
       navigate("/onboarding/1");
     } catch (error) {
       console.log("Validation Errors:", error.inner);
