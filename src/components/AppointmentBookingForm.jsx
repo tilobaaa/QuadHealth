@@ -58,11 +58,11 @@ const AppointmentBookingForm = () => {
 
   return (
     <div className="lg:col-span-1 bg-grey-50 mx-10 p-4 h-fit lg:flex lg:flex-col gap-6">
-      <h4 className="text-center mb-6">
+      <h4 className="text-center mb-6 text-xl text-grey-900 ">
         Book an appointment with Dr. Khaleemah Nuraini
       </h4>
       <select
-        className="w-full border border-grey-300 rounded-sm px-4 py-3 text-sm text-grey-400"
+        className="w-full border border-grey-300 rounded-sm px-2 py-3 text-sm text-grey-400"
         name=""
         id=""
       >

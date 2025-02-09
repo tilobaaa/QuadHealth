@@ -62,13 +62,13 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="flex-grow bg-grey-100 py-10 px-20">
+    <div className="flex-grow bg-grey-100 py-6 px-6 sm:py-10 sm:px-20">
       <div className="lg:grid grid-cols-3">
         {/* left side */}
         <div className="lg:col-span-2 flex flex-col gap-6">
           <div className=" bg-grey-50 p-4 flex gap-1 ">
             <img
-              className="w-28 h-28"
+              className="w-15 h-15 sm:w-28 sm:h-28"
               src="/assets/profile-picture.png"
               alt=""
             />
@@ -124,7 +124,7 @@ const Profile = () => {
               {showFullText ? "See less" : "See more"}
             </p>
           </div>
-          <div className="w-full grid grid-cols-2 bg-grey-50">
+          <div className="w-full sm:grid grid-cols-2 bg-grey-50">
             <div className="col-span-1 p-4 border border-grey-300 flex flex-col gap-4">
               <h4 className="text-grey-900 font-medium">General Information</h4>
               <div className="flex flex-row gap-1">
@@ -252,10 +252,16 @@ const Profile = () => {
               All reviews are from verified Quad Health patients and can’t be
               altered by the health provider{" "}
             </p>
-            <div className="flex justify-between ">
-              <div className="flex flex-col gap-4">
+            <div className="flex flex-col sm:flex-row justify-between ">
+              <div className="flex flex-col gap-4 items-center justify-center">
                 <p className="text-[2.5rem]">4.7</p>
-                <img src="/assets/five-star" alt="" />
+                <div className="flex gap-2 items-center justify-center">
+                  <img src="/assets/star.svg" alt="" />
+                  <img src="/assets/star.svg" alt="" />
+                  <img src="/assets/star.svg" alt="" />
+                  <img src="/assets/star.svg" alt="" />
+                  <img src="/assets/star.svg" alt="" />
+                </div>
                 <p>(20 Reviews)</p>
               </div>
               <div>{/* people that have rated and the rating summary */}</div>

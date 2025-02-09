@@ -4,9 +4,19 @@ import MapComponent from "./MapContainer";
 const SearchResults = () => {
   return (
     <div>
+      <div className="flex gap-4 sm:hidden">
+        <button className="flex gap-3 items-center justify-center border border-grey-800 p-3 w-full rounded-sm text-grey-800 font-medium">
+          <img src="/assets/settings-04.svg" alt="" />
+          <p>Filter</p>
+        </button>
+        <button className="flex gap-3 items-center justify-center border border-grey-800 py-3 w-full rounded-sm text-grey-800 font-medium">
+          <img className="w-6 h-6" src="/assets/map-01.svg" alt="" />
+          <p>View Map</p>
+        </button>
+      </div>
       <div className="flex justify-between items-center mb-6">
-        <p className="text-grey-800 text-xl ">24 Results</p>
-        <p className="text-grey-700">Saturday, 22.02.2025</p>
+        <p className="text-grey-800 text-sm sm:text-xl ">24 Results</p>
+        <p className="text-grey-700 text-sm sm:text-lg">Saturday, 22.02.2025</p>
         <div className="flex gap-2">
           <img src="/assets/chevron-left.svg" alt="" />
           <img src="/assets/chevron-right.svg" alt="" />
@@ -56,8 +66,8 @@ const SearchResults = () => {
           <div className="flex flex-row justify-between my-6">
             <div className="flex flex-row gap-2 p-6 ">
               <img
-                className="w-24 h-24 object-contain"
-                src="/assets/doctor-full.png"
+                className="w-16 h-16 lg:w-24 lg:h-24 object-contain"
+                src="/assets/doc-profile.png"
                 alt=""
               />
               <div className="flex flex-col gap-2">
@@ -72,12 +82,17 @@ const SearchResults = () => {
                 </div>
                 <div className="flex gap-2">
                   <img src="/assets/marker-pin-01.svg" alt="" />
-                  <p className="text-grey-700 text-sm">Randle General Hospital, Surulere. Lagos</p>
+                  <p className="text-grey-700 text-sm">
+                    Randle General Hospital, Surulere. Lagos
+                  </p>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 items-start">
                   <img src="/assets/file-heart-02.svg" alt="" />
                   <p className="text-grey-700 text-sm">
-                    Accepts insurance <br className="lg:hidden"/><span className="text-grey-800 border-b border-b-grey-800">View Accepted Insurance</span>
+                    Accepts insurance <br className="lg:hidden" />
+                    <span className="text-grey-800 border-b border-b-grey-800">
+                      View Accepted Insurance
+                    </span>
                   </p>
                 </div>
               </div>
