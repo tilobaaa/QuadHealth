@@ -21,7 +21,7 @@ function App() {
    <div className='flex flex-col h-screen'>
     <NavBar/>
     <Routes>
-      <Route path="/" element={email? <Home />: <SignUp/>} />
+      <Route path="/" element={<Home />} />
       <Route path="/signup" element={<SignUp/>}/>
       <Route path="/login" element={<Login />} />
       <Route path="/forgotPassword" element={<ForgotPassword />} />

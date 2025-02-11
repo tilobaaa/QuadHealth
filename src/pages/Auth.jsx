@@ -9,7 +9,7 @@ const Auth = () => {
   const email = signupData.email;
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef([]);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (index, event) => {
     const value = event.target.value;
@@ -39,19 +39,17 @@ const Auth = () => {
   };
 
   const handleSubmit = async () => {
-    setLoading(true)
+    setLoading(true);
     const enteredOtp = otp.join(""); // Convert array to string
     try {
       // const res = await axios.post("https://healthcare-backend-jslb.onrender.com/v1/users/verify-otp", {otp:enteredOtp});
       // console.log(res.data)
       await new Promise((resolve) => setTimeout(resolve, 3000));
-      setLoading(false)
+      setLoading(false);
       navigate("/login");
-     
     } catch (error) {
       console.error("Error verifying OTP", error);
     }
-    
   };
 
   return (
@@ -78,7 +76,7 @@ const Auth = () => {
         </div>
 
         {/* OTP Input Boxes */}
-        <div className="flex items-center justify-around my-10 w-full gap-4">
+        <div className="flex items-center justify-around my-10 w-full lg:gap-4">
           {otp.map((digit, index) => (
             <input
               key={index}
@@ -106,29 +104,25 @@ const Auth = () => {
         >
           Verify Identity
         </button>
-
-      
       </div>
-       {/* Full-page Loader */}
-       {loading && (
-  <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black opacity-50">
-    <div className="relative w-56 h-56 flex justify-center items-center">
-      {/* Outer Circle */}
-      <div className="absolute w-full h-full border-16 border-gray-300 rounded-full"></div>
+      {/* Full-page Loader */}
+      {loading && (
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black opacity-50">
+          <div className="relative w-56 h-56 flex justify-center items-center">
+            {/* Outer Circle */}
+            <div className="absolute w-full h-full border-16 border-gray-300 rounded-full"></div>
 
-      {/* Moving Loader */}
-      <div className="absolute w-56 h-56 border-16 border-transparent  border-b-primary-500 rounded-full animate-spin z-40"></div>
+            {/* Moving Loader */}
+            <div className="absolute w-56 h-56 border-16 border-transparent  border-b-primary-500 rounded-full animate-spin z-40"></div>
+          </div>
+        </div>
+      )}
 
-    
-    
-    </div>
-  </div>
-)}
-
-      <p className="text-sm text-grey-500 text-center">© 2025, QuadHealth Co.</p>
+      <p className="text-sm text-grey-500 text-center">
+        © 2025, QuadHealth Co.
+      </p>
     </div>
   );
 };
 
 export default Auth;
-

@@ -34,15 +34,27 @@ const CityInput = () => {
   return (
     <div ref={dropdownRef} className="flex-1 lg-flex-3 relative ">
       <input
-        className="w-full h-full pr-4 pl-10 py-6 border border-grey-400"
+        className={`peer w-full h-full pl-10 py-6 sm:px-4 lg:pr-4 lg:pl-10  lg:py-6 border border-grey-400  bg-grey-50 focus:outline-none focus:ring-2 focus:ring-primary-200 placeholder-transparent  `}
         type="text"
-        placeholder="Your city, state or location"
+        id="location"
+        name="location"
+        placeholder="your city or location"
         onFocus={() => {
           setIsFocused(true);
         }}
         onChange={(e) => setQuery(e.target.value)}
         value={query}
       />
+      {/* Floating Label */}
+      <label
+        htmlFor={"location"}
+        className={`absolute bg-grey-50 left-10  px-1 text-base transition-all 
+peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-grey-400 
+peer-focus:-top-2 peer-focus:text-sm peer-focus:px-1 peer-focus:text-grey-400 `}
+      >
+        Your city, state or location
+      </label>
+
       <img
         className="absolute top-1/2 -translate-1/2 left-6"
         src="/assets/marker-pin-01.svg"

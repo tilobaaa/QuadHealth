@@ -106,6 +106,7 @@ const Onboard1 = () => {
             error={error.firstName}
           />
           <Input
+            icon={"/assets/user-02.svg"}
             ref={lastNameRef}
             name="lastName"
             label="Last Name"
@@ -130,6 +131,7 @@ const Onboard1 = () => {
           type="date"
           label="Date of Birth"
           error={error.dateOfBirth}
+          setError={(prev) => ({ ...prev, dateOfBirth: null })}
         />
 
         {/* Gender Section */}

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 const HomeInput = () => {
   const [isFocused, setIsFocused] = useState(false);
+  const [error, setError] = useState(false);
   const options = [
     "Apple",
     "Banana",
@@ -19,7 +20,6 @@ const HomeInput = () => {
     option.toLowerCase().includes(query.toLowerCase())
   );
 
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -34,9 +34,12 @@ const HomeInput = () => {
 
   return (
     <div ref={dropdownRef} className="flex-1 lg:flex-5 relative ">
+  
       <input
-        className="w-full h-full py-6 sm:px-4 lg:pr-4 lg:pl-10  lg:py-6 border border-grey-400"
+        className={`peer w-full h-full pl-10 py-6 sm:px-4 lg:pr-4 lg:pl-10  lg:py-6 border border-grey-400  bg-grey-50 focus:outline-none focus:ring-2 focus:ring-primary-200 placeholder-transparent  `}
         type="text"
+        id="random-search"
+        name="random-search"
         placeholder="Search for  condition,  field or doctor name "
         onFocus={() => {
           setIsFocused(true);
@@ -44,6 +47,16 @@ const HomeInput = () => {
         onChange={(e) => setQuery(e.target.value)}
         value={query}
       />
+      {/* Floating Label */}
+      <label
+        htmlFor={"random-search"}
+        className={`absolute bg-grey-50 left-10  px-1 text-base transition-all 
+peer-placeholder-shown:top-6 peer-placeholder-shown:text-sm peer-placeholder-shown:text-grey-400 
+peer-focus:-top-2 peer-focus:text-xs peer-focus:px-1 peer-focus:text-grey-400 `}
+      >
+        Search for condition
+      </label>
+
       <img
         className="absolute top-1/2 -translate-1/2 left-6 "
         src="/assets/input-search-md.svg"
@@ -84,3 +97,5 @@ const HomeInput = () => {
 };
 
 export default HomeInput;
+
+

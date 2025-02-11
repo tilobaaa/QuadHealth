@@ -4,20 +4,19 @@ import { useNavigate } from "react-router-dom";
 import useOnboardingStore from "../store/onBoardingStore";
 import * as Yup from "yup";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import styles
 
 const Login = () => {
   const [errorState, setErrorState] = useState({});
   const navigate = useNavigate();
   const [noCheckOut, setNoCheckOut] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-
- const { signupData,updateSignupData } = useOnboardingStore();
-
-  
+  const { signupData, updateSignupData } = useOnboardingStore();
 
   const emailRef = useRef("");
   const passwordRef = useRef("");
-
 
   useEffect(() => {
     console.log(errorState);
@@ -34,7 +33,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     console.log(emailRef.current.value);
     console.log(passwordRef.current.value);
 
@@ -45,16 +44,31 @@ const Login = () => {
 
     try {
       await validationSchema.validate(formData, { abortEarly: false });
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      toast.success("Login Successful!",{
+        position: "top-right",
+        autoClose: 5000,
+      });
       // const res = await axios.post("https://healthcare-backend-jslb.onrender.com/v1/auth/login", formData);
       // updateSignupData({});
+      setLoading(false);
+     
       navigate("/onboarding/1");
     } catch (error) {
-      console.log("Validation Errors:", error.inner);
-      const newErrors = {};
-      error.inner.forEach((err) => {
-        newErrors[err.path] = err.message; //Store error message by field name
-      });
-      setErrorState(newErrors);
+      if (error.name === "ValidationError") {
+        const newErrors = {};
+        error.inner.forEach((err) => {
+          newErrors[err.path] = err.message;
+        });
+        setErrorState(newErrors);
+      } else if (error.response) {
+        console.log("Server Error:", error.response.data);
+        setErrorState({
+          server: error.response.data.message || "Something went wrong!",
+        });
+      } else {
+        console.log("Unexpected Error:", error.message);
+      }
     }
   };
 
@@ -181,7 +195,6 @@ const Login = () => {
             <p className="mt-6 text-grey-800 text-lg">Forgot password?</p>
 
             <button
-            
               type="submit"
               className="mt-10 w-full py-3 text-grey-100 bg-primary-500 hover:scale-105 cursor-pointer transition-all duration-500 rounded-sm disabled:cursor-not-allowed "
             >
@@ -211,10 +224,26 @@ const Login = () => {
       <button className="hidden absolute right-4 bottom-55 cursor-pointer hover:scale-105 transition-all duration-300 bg-primary-500 lg:flex justify-center text-white items-center gap-2 py-3 px-6 rounded-sm custom-shadow">
         Need Help <img src="/assets/help-square.svg" alt="" />
       </button>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        closeOnClick={true}
+        theme="light"
+      />
+      {/* Full-page Loader */}
+      {loading && (
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black opacity-50">
+          <div className="relative w-56 h-56 flex justify-center items-center">
+            {/* Outer Circle */}
+            <div className="absolute w-full h-full border-16 border-gray-300 rounded-full"></div>
+
+            {/* Moving Loader */}
+            <div className="absolute w-56 h-56 border-16 border-transparent  border-b-primary-500 rounded-full animate-spin z-40"></div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default Login;
-
-

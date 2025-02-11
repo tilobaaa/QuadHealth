@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MedicalFields from "../components/medicalFields";
 import Checklist from "../components/Checklist";
 import CustomDatePicker from "../components/CustomDatePicker";
 import HomeInput from "../components/HomeInput";
 import CityInput from "../components/CityInput";
 import SearchResults from "../components/SearchResults";
-import Input from "../components/Input";
-import { useRef } from "react";
+import { currentTime } from "../components/utilities";
+import { useRef} from "react";
 import AppointmentInput from "../components/AppointmentDate";
 
 const Home = () => {
   const dateRef = useRef();
+  const [timeNow, setTimeNow] = useState(currentTime())
+  
+  useEffect(()=>{
+    const timer = setTimeout(()=>{
+      setTimeNow(currentTime());
+    }, 60000)
+
+    return ()=>clearTimeout(timer)
+  }, [])
   return (
     <div className="py-8 px-14 lg:py-10 lg:px-20 w-full flex-grow bg-grey-100 relative">
       <div className="flex justify-between items-center mb-4 sm:mb-6">
@@ -24,7 +33,7 @@ const Home = () => {
           <div className=" ">
             <div className="flex items-center">
               <img src="/assets/clock.svg" alt="" />
-              <p>12:15 PM</p>
+              <p>{timeNow}</p>
             </div>
 
             <div className="flex items-center">
@@ -42,7 +51,7 @@ const Home = () => {
         </div>
         <div className="flex items-center gap-1">
           <img src="/assets/clock.svg" alt="" />
-          <p>12:15 PM</p>
+          <p>{timeNow}</p>
         </div>
 
        

@@ -23,11 +23,11 @@ const Input = forwardRef(
             <span className="absolute right-2 top-1/2 transform -translate-y-1/2">
               <img
                 onClick={() => {
-                  setError('')
+                  setError();
                   ref.current.value = "";
                 }}
                 src="/assets/x-square.svg"
-                className=""
+                className="cursor-pointer"
                 alt=""
               />
             </span>
