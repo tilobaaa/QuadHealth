@@ -3,5 +3,5 @@ export const currentTime = ()=>{
     let hours = date.getHours();
     let minutes = date.getMinutes();
     
-    return `${hours}:${minutes<10?`0${minutes}`: minutes}`;
+    return `${hours<10?`0${hours}`:hours}:${minutes<10?`0${minutes}`: minutes}`;
 }
