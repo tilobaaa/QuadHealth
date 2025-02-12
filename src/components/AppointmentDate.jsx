@@ -16,7 +16,7 @@ const AppointmentInput = forwardRef(
     ref
   ) => {
     return (
-      <div>
+      <div className="flex-1 lg:flex-3">
         <div className="relative h-full">
           {/* Left Icon */}
           {icon && (
@@ -47,7 +47,7 @@ const AppointmentInput = forwardRef(
             name={name}
             value={value}
             onChange={onChange}
-            placeholder="jvystsy" // Keep placeholder empty for label animation
+            placeholder="" // Keep placeholder empty for label animation
             className={` peer w-full h-full border ${
               error
                 ? "border-error-500 focus:ring-error-500"
@@ -55,7 +55,7 @@ const AppointmentInput = forwardRef(
             } 
               rounded ${
                 icon ? "pl-10" : "pl-4"
-              } pr-2 py-4 bg-grey-50 focus:outline-none focus:ring-2 focus:ring-primary-200 placeholder-transparent  `}
+              } pr-2 py-4 bg-grey-50 focus:outline-none focus:ring-2 focus:ring-primary-200 placeholder-transparent text-grey-800 `}
           />
 
           {/* Floating Label */}

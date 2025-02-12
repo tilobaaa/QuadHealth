@@ -50,11 +50,11 @@ const HomeInput = () => {
       {/* Floating Label */}
       <label
         htmlFor={"random-search"}
-        className={`absolute bg-grey-50 left-10  px-1 text-base transition-all 
-peer-placeholder-shown:top-6 peer-placeholder-shown:text-sm peer-placeholder-shown:text-grey-400 
+        className={`absolute bg-grey-50 left-10  px-1 text-base transition-all peer-placeholder-shown:top-4
+sm:peer-placeholder-shown:top-8 peer-placeholder-shown:text-sm peer-placeholder-shown:text-grey-400 
 peer-focus:-top-2 peer-focus:text-xs peer-focus:px-1 peer-focus:text-grey-400 `}
       >
-        Search for condition
+        Search for  condition, field or doctor name 
       </label>
 
       <img
