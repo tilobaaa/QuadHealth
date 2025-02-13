@@ -143,3 +143,22 @@ export const fullText = `Dr. Khaleemah Nuraini is a highly respected cardiologis
   Medicine (M.D.) degree from the University of Ibadan, Dr. Nuraini
   specialized in cardiology and became certified by the West African
   College of Physicians. She is`;
+
+
+  const statesInNigeria = [
+    "Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi", "Bayelsa", "Benue", "Borno",
+    "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "Gombe", "Imo", 
+    "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", 
+    "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", 
+    "Sokoto", "Taraba", "Yobe", "Zamfara"
+  ];
+  
+  const citiesInLagos = [
+    "Agege", "Ajeromi-Ifelodun", "Alimosho", "Amuwo-Odofin", "Apapa", "Badagry",
+    "Epe", "Eti-Osa", "Ibeju-Lekki", "Ifako-Ijaiye", "Ikeja", "Ikorodu", "Kosofe",
+    "Lagos Island", "Lagos Mainland", "Mushin", "Ojo", "Oshodi-Isolo", "Shomolu", "Surulere"
+  ];
+  
+export const options = [...statesInNigeria, ...citiesInLagos];
+
+export const generalOptions = [...specialityData.map(item=> item.title)]

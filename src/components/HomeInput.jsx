@@ -1,17 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import { generalOptions as options } from "../../public/assets/assets";
 const HomeInput = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [error, setError] = useState(false);
-  const options = [
-    "Apple",
-    "Banana",
-    "Cherry",
-    "Grapes",
-    "Mango",
-    "Orange",
-    "Strawberry",
-  ];
+  
   const [query, setQuery] = useState("");
 
   const dropdownRef = useRef(null);

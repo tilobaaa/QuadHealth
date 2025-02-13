@@ -1,7 +1,10 @@
 import React from "react";
 import MapComponent from "./MapContainer";
+import { useNavigate } from "react-router-dom";
 
 const SearchResults = () => {
+
+  const navigate = useNavigate();
   return (
     <div>
       <div className="flex gap-4 sm:hidden">
@@ -66,9 +69,10 @@ const SearchResults = () => {
           <div className="flex flex-row justify-between my-6">
             <div className="flex flex-row gap-2 p-6 ">
               <img
-                className="w-16 h-16 lg:w-24 lg:h-24 object-contain"
+                className="w-16 h-16 lg:w-24 lg:h-24 object-contain cursor-pointer"
                 src="/assets/doc-profile.png"
                 alt=""
+                onClick={()=>{navigate('/doctor/e1/profile')}}
               />
               <div className="flex flex-col gap-2">
                 <p className="text-grey-900 text-sm">Dr. John Doe</p>

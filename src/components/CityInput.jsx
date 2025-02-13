@@ -1,16 +1,9 @@
 import { useState, useEffect, useRef } from "react";
+import { options } from "../../public/assets/assets";
 
 const CityInput = () => {
   const [isFocused, setIsFocused] = useState(false);
-  const options = [
-    "Apple",
-    "Banana",
-    "Cherry",
-    "Grapes",
-    "Mango",
-    "Orange",
-    "Strawberry",
-  ];
+ 
   const [query, setQuery] = useState("");
 
   const dropdownRef = useRef(null);

@@ -6,37 +6,42 @@ import HomeInput from "../components/HomeInput";
 import CityInput from "../components/CityInput";
 import SearchResults from "../components/SearchResults";
 import { currentTime, getUserLocation } from "../components/utilities";
-import { useRef} from "react";
+import { useRef } from "react";
 import AppointmentInput from "../components/AppointmentDate";
 
 const Home = () => {
   const dateRef = useRef();
-  const [timeNow, setTimeNow] = useState(currentTime())
-  const [location, setLocation] = useState({state:"", country:""})
-  
+  const [timeNow, setTimeNow] = useState(currentTime());
+  const [location, setLocation] = useState({ state: "", country: "" });
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
 
   // to get the current time
-  useEffect(()=>{
-    const timer = setInterval(()=>{
+  useEffect(() => {
+    const timer = setInterval(() => {
       setTimeNow(currentTime());
-    }, 60000)
+    }, 60000);
 
-    return ()=>clearTimeout(timer)
-  }, [timeNow])
+    return () => clearTimeout(timer);
+  }, [timeNow]);
 
   //to get the user location
-useEffect(()=>{
-  const fetchLocation = async()=>{
-    try{
-      const userLocation = await getUserLocation();
-      setLocation(userLocation);
-      
-    }catch(error){
-      console.error('where are you')
-    }
-  };
-  fetchLocation();
-}, [])
+  useEffect(() => {
+    const fetchLocation = async () => {
+      try {
+        const userLocation = await getUserLocation();
+        setLocation(userLocation);
+      } catch (error) {
+        console.error("where are you");
+      }
+    };
+    fetchLocation();
+  }, []);
+
+  // after user submits search input 
+  const handleSearch = (e) => {
+    setShowSearchResults(true);
+  }
   return (
     <div className="py-8 px-14 lg:py-10 lg:px-20 w-full flex-grow bg-grey-100 relative">
       <div className="flex justify-between items-center mb-4 sm:mb-6">
@@ -62,7 +67,7 @@ useEffect(()=>{
       </div>
 
       <div className="sm:hidden flex gap-2 mb-6 ">
-      <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1">
           <img src="/assets/marker-pin-01.svg" alt="" />
           <p>{`${location.state}, ${location.country}`}</p>
         </div>
@@ -70,8 +75,6 @@ useEffect(()=>{
           <img src="/assets/clock.svg" alt="" />
           <p>{timeNow}</p>
         </div>
-
-       
       </div>
 
       <div className="w-full flex flex-col sm:flex-row">
@@ -85,15 +88,21 @@ useEffect(()=>{
           label="Appointment Date"
         />
 
-        <button className="bg-primary-500 flex items-center justify-center rounded-sm p-6 gap-2 cursor-pointer hover:scale-105 duration-500">
+        <button onClick={handleSearch} className="bg-primary-500 flex items-center justify-center rounded-sm p-6 gap-2 cursor-pointer hover:scale-105 duration-500">
           <img className="sm:m-auto w-fit" src="/assets/search-md.svg" alt="" />
-          <span className="text-grey-50 font-medium sm:hidden">Find Doctors</span>
+          <span className="text-grey-50 font-medium sm:hidden">
+            Find Doctors
+          </span>
         </button>
       </div>
-
-      <MedicalFields />
-      <Checklist />
-      <SearchResults />
+      {showSearchResults ? (
+        <SearchResults />
+      ) : (
+        <>
+          <MedicalFields />
+          <Checklist />
+        </>
+      )}
     </div>
   );
 };
