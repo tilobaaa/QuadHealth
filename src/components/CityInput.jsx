@@ -1,12 +1,23 @@
 import { useState, useEffect, useRef } from "react";
 import { options } from "../../public/assets/assets";
+import useOnboardingStore from "../store/onBoardingStore";
 
 const CityInput = () => {
   const [isFocused, setIsFocused] = useState(false);
+  const {updateSearchInput} = useOnboardingStore();
  
   const [query, setQuery] = useState("");
 
   const dropdownRef = useRef(null);
+
+  // useEffect(()=>{
+  //   const timeOutId = setTimeout(()=>{
+  //     updateSearchInput({city:query})
+  //   }, 3000)
+
+  //   return ()=>{clearInterval(timeOutId)}
+  // }, [query])
+ 
 
   const filteredOptions = options.filter((option) =>
     option.toLowerCase().includes(query.toLowerCase())

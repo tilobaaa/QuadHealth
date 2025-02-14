@@ -160,5 +160,51 @@ export const fullText = `Dr. Khaleemah Nuraini is a highly respected cardiologis
   ];
   
 export const options = [...statesInNigeria, ...citiesInLagos];
+export const commonDiseases = [
+  "Diabetes",
+  "Hypertension (High Blood Pressure)",
+  "Asthma",
+  "Arthritis",
+  "Migraine",
+  "Allergies",
+  "Depression",
+  "Anxiety",
+  "COVID-19",
+  "Influenza (Flu)",
+  "Pneumonia",
+  "Bronchitis",
+  "Tuberculosis (TB)",
+  "Heart Disease",
+  "Stroke",
+  "Obesity",
+  "Thyroid Disorders",
+  "Chronic Kidney Disease",
+  "Liver Disease",
+  "Gastritis",
+  "Ulcers",
+  "Food Poisoning",
+  "Irritable Bowel Syndrome (IBS)",
+  "Hemorrhoids",
+  "Sexually Transmitted Infections (STIs)",
+  "HIV/AIDS",
+  "Polycystic Ovary Syndrome (PCOS)",
+  "Endometriosis",
+  "Infertility",
+  "Pregnancy Complications",
+  "Eczema",
+  "Psoriasis",
+  "Acne",
+  "Skin Infections",
+  "Back Pain",
+  "Sciatica",
+  "Osteoporosis",
+  "Glaucoma",
+  "Cataracts",
+  "Ear Infections",
+  "Tonsillitis",
+  "Sinusitis",
+  "Sleep Apnea"
+];
 
-export const generalOptions = [...specialityData.map(item=> item.title)]
+
+export const generalOptions = [...specialityData.map(item=> item.title), ...commonDiseases]

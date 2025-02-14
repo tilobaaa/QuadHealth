@@ -9,10 +9,12 @@ const useOnboardingStore = create((set) => {
     page3: {},
     page4: {},
   };
+  // const savedSearchInput = {};
 
   return {
     // Initial state
     signupData: savedSignupData,
+    // searchData: savedSearchInput,
     onboardingData: savedOnboardingData,
 
     // Function to update signup data and save to localStorage
@@ -22,6 +24,13 @@ const useOnboardingStore = create((set) => {
         localStorage.setItem("signupData", JSON.stringify(updatedData));
         return { signupData: updatedData };
       }),
+      // Function to update search input and save to localStorage
+      // updateSearchInput: (newData) =>
+      //   set((state)=>{
+      //     const updatedData = { ...state.searchData, ...newData };
+          
+      //     return { searchData: updatedData };
+      //   }),
 
     // Function to update onboarding data per page and save to localStorage
     updateOnboardingData: (page, newData) =>

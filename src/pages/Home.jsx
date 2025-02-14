@@ -8,6 +8,7 @@ import SearchResults from "../components/SearchResults";
 import { currentTime, getUserLocation } from "../components/utilities";
 import { useRef } from "react";
 import AppointmentInput from "../components/AppointmentDate";
+import useOnboardingStore from "../store/onBoardingStore";
 
 const Home = () => {
   const dateRef = useRef();
@@ -15,6 +16,7 @@ const Home = () => {
   const [location, setLocation] = useState({ state: "", country: "" });
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
+  const {searchData} = useOnboardingStore()
 
   // to get the current time
   useEffect(() => {
@@ -38,9 +40,12 @@ const Home = () => {
     fetchLocation();
   }, []);
 
+  
+
   // after user submits search input 
   const handleSearch = (e) => {
     setShowSearchResults(true);
+    console.log({guy:searchData});
   }
   return (
     <div className="py-8 px-14 lg:py-10 lg:px-20 w-full flex-grow bg-grey-100 relative">

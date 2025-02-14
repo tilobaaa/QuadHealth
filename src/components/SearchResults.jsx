@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import MapComponent from "./MapContainer";
 import { useNavigate } from "react-router-dom";
 
 const SearchResults = () => {
+
+  const [location, setLocation] = useState("");
+  const [specialty, setSpecialty] = useState("");
+  const [date, setDate] = useState("");
+
+  const handleSearch = async()=>{
+if(!location) return alert("Please enter a location") 
+
+  }
 
   const navigate = useNavigate();
   return (
@@ -27,7 +36,7 @@ const SearchResults = () => {
       </div>
       <div className="sm:grid grid-cols-5">
         {/* left side  */}
-        <div className="hidden sm:col-span-2 lg:col-span-1 bg-grey-50 py-6 px-4">
+        <div className="hidden sm:block sm:col-span-2 lg:col-span-1 bg-grey-50 py-6 px-4">
           <p className="font-semibold text-grey-900">Filter</p>
           <div className="flex flex-row gap-2 mb-7">
             <button className="w-full rounded-sm px-3 py-2 font-medium text-grey-50 bg-primary-500">
@@ -65,7 +74,7 @@ const SearchResults = () => {
           </div>
         </div>
         {/* middle */}
-        <div className="col-span-3 bg-grey-50 sm:ml-4  lg:ml-6 lg:mr-6">
+        <div className="md:col-span-3 bg-grey-50 sm:ml-4  lg:ml-6 lg:mr-6">
           <div className="flex flex-row justify-between my-6">
             <div className="flex flex-row gap-2 p-6 ">
               <img
@@ -112,7 +121,7 @@ const SearchResults = () => {
           </div>
         </div>
         {/* right side */}
-        <div className=" hidden lg-col-span-1">
+        <div className=" hidden lg:block lg-col-span-1">
           <MapComponent />
         </div>
       </div>

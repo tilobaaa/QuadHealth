@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { generalOptions as options } from "../../public/assets/assets";
+import useOnboardingStore from "../store/onBoardingStore";
 const HomeInput = () => {
   const [isFocused, setIsFocused] = useState(false);
-  const [error, setError] = useState(false);
-  
+ const {updateSearchInput} = useOnboardingStore();
   const [query, setQuery] = useState("");
 
   const dropdownRef = useRef(null);
@@ -11,6 +11,15 @@ const HomeInput = () => {
   const filteredOptions = options.filter((option) =>
     option.toLowerCase().includes(query.toLowerCase())
   );
+
+  //update zustand on the home input 
+  // useEffect(()=>{
+  //   const timeOutId = setTimeout(()=>{
+  //     updateSearchInput({specialty: query})
+  //   }, 3000);
+
+  //   return ()=> clearTimeout(timeOutId)
+  // }, [query])
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -42,9 +51,9 @@ const HomeInput = () => {
       {/* Floating Label */}
       <label
         htmlFor={"random-search"}
-        className={`absolute bg-grey-50 left-10  px-1 text-base transition-all peer-placeholder-shown:top-4
-sm:peer-placeholder-shown:top-8 peer-placeholder-shown:text-sm peer-placeholder-shown:text-grey-400 
-peer-focus:-top-2 peer-focus:text-xs peer-focus:px-1 peer-focus:text-grey-400 `}
+        className={`absolute bg-grey-50 left-10  px-1 text-base transition-all 
+peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-grey-400 
+peer-focus:-top-2 peer-focus:text-sm peer-focus:px-1 peer-focus:text-grey-400 `}
       >
         Search for  condition, field or doctor name 
       </label>

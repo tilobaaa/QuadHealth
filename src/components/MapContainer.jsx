@@ -2,52 +2,45 @@ import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-const center = [6.5244, 3.3792]; // Lagos Coordinates
+const MapComponent=({location})=>{
+  
+  const [hospitals, setHospitals] = useState([]);
+  const [searchLocation, setSearchLocation] = useState("");
 
-export default function MapComponent() {
-  const [healthcareProviders, setHealthcareProviders] = useState([]);
-
+  // Fetch hospitals near the given coordinates
   useEffect(() => {
-    const fetchHealthcareProviders = async () => {
-      const query = `[out:json];
-        node["amenity"="hospital"](6.4,3.3,6.6,3.5);
-        node["amenity"="clinic"](6.4,3.3,6.6,3.5);
-        node["amenity"="pharmacy"](6.4,3.3,6.6,3.5);
-        out;`;
-      const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
+    if (!location) return;
 
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        const locations = data.elements.map((el) => ({
-          id: el.id,
-          lat: el.lat,
-          lon: el.lon,
-          name: el.tags.name || "Unnamed Healthcare Provider",
-        }));
-        setHealthcareProviders(locations);
-      } catch (error) {
-        console.error("Error fetching healthcare providers:", error);
-      }
+    const fetchHospitals = async () => {
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=hospital+near+${location[0]},${location[1]}`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      setHospitals(
+        data.map((place) => ({
+          name: place.display_name,
+          lat: parseFloat(place.lat),
+          lon: parseFloat(place.lon),
+        }))
+      );
     };
 
-    fetchHealthcareProviders();
-  }, []);
+    fetchHospitals();
+  }, [location]);
 
-  return (
-    <MapContainer center={center} zoom={12} className="leaflet-container">
-      {/* OpenStreetMap Tiles */}
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      />
 
-      {/* Display Healthcare Providers */}
-      {healthcareProviders.map((provider) => (
-        <Marker key={provider.id} position={[provider.lat, provider.lon]}>
-          <Popup>🏥 {provider.name}</Popup>
-        </Marker>
-      ))}
-    </MapContainer>
-  );
+return (
+  <MapContainer center={location} zoom={12} style={{ height: "500px", width: "100%" }}>
+    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
+    {/* Markers for Hospitals */}
+    {hospitals.map((hospital, index) => (
+      <Marker key={index} position={[hospital.lat, hospital.lon]}>
+        <Popup>{hospital.name}</Popup>
+      </Marker>
+    ))}
+  </MapContainer>
+);
 }
+
+export default MapComponent;
