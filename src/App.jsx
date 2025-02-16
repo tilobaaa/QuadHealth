@@ -15,13 +15,13 @@ import AppointmentBookingForm from './components/AppointmentBookingForm'
 
 function App() {
   const { signupData } = useOnboardingStore();
-  const email = signupData.email;
+  const firstName = signupData.firstName;
 
   return (
    <div className='flex flex-col h-screen'>
     <NavBar/>
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={firstName ? <Home /> : <SignUp/>} />
       <Route path="/signup" element={<SignUp/>}/>
       <Route path="/login" element={<Login />} />
       <Route path="/forgotPassword" element={<ForgotPassword />} />

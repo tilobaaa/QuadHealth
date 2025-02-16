@@ -9,7 +9,7 @@ import axios from "axios";
 
 const Onboard1 = () => {
   const navigate = useNavigate();
-  const { updateOnboardingData } = useOnboardingStore();
+  const { signupData, updateSignupData } = useOnboardingStore();
 
   const today = new Date();
   const eighteenYearsAgo = new Date();
@@ -61,9 +61,10 @@ const Onboard1 = () => {
 
     try {
       await schema.validate(formData, { abortEarly: false });
-      console.log(formData);
+      const res = await axios.put(`https://healthcare-backend-jslb.onrender.com/v1/users/${signupData.id}`, formData)
+      updateSignupData(res.data)
 
-      updateOnboardingData("page1", formData);
+      // updateOnboardingData("page1", formData);
       navigate("/onboarding/2");
     } catch (err) {
       const errors = {};

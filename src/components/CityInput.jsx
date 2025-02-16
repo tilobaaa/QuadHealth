@@ -1,23 +1,15 @@
-import { useState, useEffect, useRef } from "react";
+import { forwardRef, useState, useEffect, useRef } from "react";
 import { options } from "../../public/assets/assets";
-import useOnboardingStore from "../store/onBoardingStore";
 
-const CityInput = () => {
+
+const CityInput = forwardRef((props,ref) => {
   const [isFocused, setIsFocused] = useState(false);
-  const {updateSearchInput} = useOnboardingStore();
+  
  
   const [query, setQuery] = useState("");
 
   const dropdownRef = useRef(null);
 
-  // useEffect(()=>{
-  //   const timeOutId = setTimeout(()=>{
-  //     updateSearchInput({city:query})
-  //   }, 3000)
-
-  //   return ()=>{clearInterval(timeOutId)}
-  // }, [query])
- 
 
   const filteredOptions = options.filter((option) =>
     option.toLowerCase().includes(query.toLowerCase())
@@ -48,6 +40,7 @@ const CityInput = () => {
         }}
         onChange={(e) => setQuery(e.target.value)}
         value={query}
+        ref={ref}
       />
       {/* Floating Label */}
       <label
@@ -97,6 +90,6 @@ peer-focus:-top-2 peer-focus:text-sm peer-focus:px-1 peer-focus:text-grey-400 `}
       )}
     </div>
   );
-};
+});
 
 export default CityInput;

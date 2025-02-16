@@ -43,13 +43,16 @@ const Login = () => {
     };
 
     try {
+      const res = await axios.post("https://healthcare-backend-jslb.onrender.com/v1/auth/login", formData);
+      console.log(res.data);
+      updateSignupData(res.data.user);
       await validationSchema.validate(formData, { abortEarly: false });
       await new Promise((resolve) => setTimeout(resolve, 3000));
       toast.success("Login Successful!",{
         position: "top-right",
         autoClose: 5000,
       });
-      // const res = await axios.post("https://healthcare-backend-jslb.onrender.com/v1/auth/login", formData);
+
       // updateSignupData({});
       setLoading(false);
      

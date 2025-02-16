@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {forwardRef, useState, useEffect, useRef } from "react";
 import { generalOptions as options } from "../../public/assets/assets";
-import useOnboardingStore from "../store/onBoardingStore";
-const HomeInput = () => {
+
+
+const HomeInput = forwardRef((props,ref) => {
   const [isFocused, setIsFocused] = useState(false);
- const {updateSearchInput} = useOnboardingStore();
+
   const [query, setQuery] = useState("");
 
   const dropdownRef = useRef(null);
@@ -12,14 +13,7 @@ const HomeInput = () => {
     option.toLowerCase().includes(query.toLowerCase())
   );
 
-  //update zustand on the home input 
-  // useEffect(()=>{
-  //   const timeOutId = setTimeout(()=>{
-  //     updateSearchInput({specialty: query})
-  //   }, 3000);
 
-  //   return ()=> clearTimeout(timeOutId)
-  // }, [query])
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -39,6 +33,7 @@ const HomeInput = () => {
       <input
         className={`peer w-full h-full pl-10 py-6 sm:px-4 lg:pr-4 lg:pl-10  lg:py-6 border border-grey-400  bg-grey-50 focus:outline-none focus:ring-2 focus:ring-primary-200 placeholder-transparent  `}
         type="text"
+        ref={ref}
         id="random-search"
         name="random-search"
         placeholder="Search for  condition,  field or doctor name "
@@ -95,7 +90,7 @@ peer-focus:-top-2 peer-focus:text-sm peer-focus:px-1 peer-focus:text-grey-400 `}
       )}
     </div>
   );
-};
+});
 
 export default HomeInput;
 

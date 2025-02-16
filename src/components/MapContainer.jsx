@@ -3,12 +3,13 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 const MapComponent=({location})=>{
-  
+   
   const [hospitals, setHospitals] = useState([]);
   const [searchLocation, setSearchLocation] = useState("");
 
   // Fetch hospitals near the given coordinates
   useEffect(() => {
+    
     if (!location) return;
 
     const fetchHospitals = async () => {
@@ -31,14 +32,17 @@ const MapComponent=({location})=>{
 
 return (
   <MapContainer center={location} zoom={12} style={{ height: "500px", width: "100%" }}>
+    {!location && <p>No location found</p>}
     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
     {/* Markers for Hospitals */}
     {hospitals.map((hospital, index) => (
       <Marker key={index} position={[hospital.lat, hospital.lon]}>
-        <Popup>{hospital.name}</Popup>
+        <Popup className="bg-primary-500 text-primary-50">{hospital.name}</Popup>
       </Marker>
     ))}
+
+    {console.log(hospitals)}
   </MapContainer>
 );
 }

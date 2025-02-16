@@ -1,17 +1,23 @@
 // import { NavLink, Link } from "react-router-dom";
 // import { useState } from "react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useOnboardingStore from "../store/onBoardingStore";
 
 
 const NavBar = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const [name, setName] = useState()
   // const [token, setToken] = useState();
   const { signupData } = useOnboardingStore();
-  const email = signupData.email
+  const firstName = signupData.firstName;
 
+  useEffect(()=>{
+    setName(firstName)
+    console.log(signupData);
+    
+  },[signupData])
 
   const navigate = useNavigate();
   return (
@@ -39,7 +45,7 @@ const NavBar = () => {
         <div></div>
       </div>
       {/* medium and big screens */}
-      {email ? (
+      {name ? (
         <div className="hidden sm:flex flex-row items-center gap-4">
           <div className="flex gap-1 items-center p-3 border border-grey-800 rounded-sm">
             <img className="w-6 h-6 " src="/assets/bell-01.svg" alt="" />
@@ -47,7 +53,7 @@ const NavBar = () => {
           </div>
           <button className="bg-white flex gap-2 items-center text-gray-800 text-center px-8 py-3 rounded-sm font-light border  border-grey-800 hover:cursor-pointer hover:scale-105 transition-all duration-300">
             <img src="/assets/avatar-person.png" alt="" />
-            <p>Haleemah</p>
+            <p>{firstName}</p>
             <img src="/assets/chevron-down.svg" alt="" />
           </button>
         </div>

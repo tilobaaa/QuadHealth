@@ -3,7 +3,7 @@ import { create } from "zustand";
 const useOnboardingStore = create((set) => {
   // Load data from localStorage when the store initializes
   const savedSignupData =  {};
-  const savedOnboardingData = JSON.parse(localStorage.getItem("onboardingData")) || {
+  const savedOnboardingData =  {
     page1: {},
     page2: {},
     page3: {},
@@ -21,7 +21,6 @@ const useOnboardingStore = create((set) => {
     updateSignupData: (newData) =>
       set((state) => {
         const updatedData = { ...state.signupData, ...newData };
-        localStorage.setItem("signupData", JSON.stringify(updatedData));
         return { signupData: updatedData };
       }),
       // Function to update search input and save to localStorage
@@ -39,7 +38,6 @@ const useOnboardingStore = create((set) => {
           ...state.onboardingData,
           [page]: { ...state.onboardingData[page], ...newData },
         };
-        localStorage.setItem("onboardingData", JSON.stringify(updatedOnboardingData));
         return { onboardingData: updatedOnboardingData };
       }),
   };

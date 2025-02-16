@@ -42,9 +42,9 @@ const Auth = () => {
     setLoading(true);
     const enteredOtp = otp.join(""); // Convert array to string
     try {
-      // const res = await axios.post("https://healthcare-backend-jslb.onrender.com/v1/users/verify-otp", {otp:enteredOtp});
-      // console.log(res.data)
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+      const res = await axios.post("https://healthcare-backend-jslb.onrender.com/v1/users/verify-otp", {otp:enteredOtp});
+      console.log(res.data)
+      // await new Promise((resolve) => setTimeout(resolve, 3000));
       setLoading(false);
       navigate("/login");
     } catch (error) {

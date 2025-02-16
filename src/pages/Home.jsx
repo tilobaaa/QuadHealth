@@ -1,22 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import MedicalFields from "../components/medicalFields";
 import Checklist from "../components/Checklist";
 import CustomDatePicker from "../components/CustomDatePicker";
 import HomeInput from "../components/HomeInput";
 import CityInput from "../components/CityInput";
 import SearchResults from "../components/SearchResults";
-import { currentTime, getUserLocation } from "../components/utilities";
-import { useRef } from "react";
+import { currentTime, formattedDate, getCoordinates, getUserLocation } from "../components/utilities";
 import AppointmentInput from "../components/AppointmentDate";
 import useOnboardingStore from "../store/onBoardingStore";
 
 const Home = () => {
-  const dateRef = useRef();
+  
   const [timeNow, setTimeNow] = useState(currentTime());
   const [location, setLocation] = useState({ state: "", country: "" });
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-  const {searchData} = useOnboardingStore()
+  const {searchData} = useOnboardingStore();
+  const [cityLocation, setCityLocation] = useState([]);
+
+
+
+  const dateRef = useRef();
+  const homeInputRef = useRef();
+  const cityRef = useRef();
+
 
   // to get the current time
   useEffect(() => {
@@ -43,9 +50,33 @@ const Home = () => {
   
 
   // after user submits search input 
-  const handleSearch = (e) => {
+  const handleSearch = async() => {
+    
+    const homeInput= homeInputRef.current.value;
+    const cityInput = cityRef.current.value;
+    const dateInput = dateRef.current.value;
+   
+    console.log(homeInput,cityInput,dateInput, formattedDate);
+
+    if (dateInput<formattedDate){
+      alert("Please select a date after today ");
+      return
+    }if(dateInput===formattedDate && currentTime() >"12:00"){
+      alert("Please select a date after today. You cannot book above 12PM today.")
+      return
+    }
+
+    if(cityInput){
+      const coordinate = await getCoordinates(cityInput);
+      setCityLocation(coordinate);
+      console.log(coordinate)
+    
+    }else{
+      setCityLocation([location.lat, location.lon])
+    }
     setShowSearchResults(true);
-    console.log({guy:searchData});
+
+    
   }
   return (
     <div className="py-8 px-14 lg:py-10 lg:px-20 w-full flex-grow bg-grey-100 relative">
@@ -83,8 +114,8 @@ const Home = () => {
       </div>
 
       <div className="w-full flex flex-col sm:flex-row">
-        <HomeInput />
-        <CityInput />
+        <HomeInput ref={homeInputRef}/>
+        <CityInput ref={cityRef}/>
         <AppointmentInput
           icon={"/assets/calendar.svg"}
           ref={dateRef}
@@ -101,7 +132,7 @@ const Home = () => {
         </button>
       </div>
       {showSearchResults ? (
-        <SearchResults />
+        <SearchResults location={cityLocation} />
       ) : (
         <>
           <MedicalFields />

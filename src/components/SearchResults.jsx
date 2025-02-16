@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import MapComponent from "./MapContainer";
 import { useNavigate } from "react-router-dom";
 
-const SearchResults = () => {
+const SearchResults = ({location}) => {
 
-  const [location, setLocation] = useState("");
+ 
   const [specialty, setSpecialty] = useState("");
   const [date, setDate] = useState("");
 
@@ -122,7 +122,7 @@ if(!location) return alert("Please enter a location")
         </div>
         {/* right side */}
         <div className=" hidden lg:block lg-col-span-1">
-          <MapComponent />
+          <MapComponent location={location}/>
         </div>
       </div>
     </div>
