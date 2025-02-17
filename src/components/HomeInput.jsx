@@ -31,7 +31,7 @@ const HomeInput = forwardRef((props,ref) => {
     <div ref={dropdownRef} className="flex-1 lg:flex-5 relative ">
   
       <input
-        className={`peer w-full h-full pl-10 py-6 sm:px-4 lg:pr-4 lg:pl-10  lg:py-6 border border-grey-400  bg-grey-50 focus:outline-none focus:ring-2 focus:ring-primary-200 placeholder-transparent  `}
+        className={`peer w-full h-full pl-10 py-6  lg:pr-4 lg:pl-10  lg:py-6 border border-grey-400  bg-grey-50 focus:outline-none focus:ring-2 focus:ring-primary-200 placeholder-transparent  `}
         type="text"
         ref={ref}
         id="random-search"

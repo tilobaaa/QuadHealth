@@ -86,7 +86,7 @@ const Auth = () => {
               onChange={(event) => handleChange(index, event)}
               onKeyDown={(event) => handleKeyDown(index, event)}
               maxLength="1"
-              className=" border border-grey-300 rounded-sm bg-grey-50 w-12 h-12 md:h-20 md:w-20 p-4 text-center text-2xl text-grey-800"
+              className=" border border-grey-300 rounded-sm bg-grey-50 w-12 h-12 md:h-12 md:w-12 p-4 text-center text-2xl text-grey-800"
             />
           ))}
         </div>

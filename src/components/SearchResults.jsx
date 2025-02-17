@@ -15,7 +15,7 @@ if(!location) return alert("Please enter a location")
 
   const navigate = useNavigate();
   return (
-    <div>
+    <div className="py-8">
       <div className="flex gap-4 sm:hidden">
         <button className="flex gap-3 items-center justify-center border border-grey-800 p-3 w-full rounded-sm text-grey-800 font-medium">
           <img src="/assets/settings-04.svg" alt="" />
@@ -74,7 +74,7 @@ if(!location) return alert("Please enter a location")
           </div>
         </div>
         {/* middle */}
-        <div className="md:col-span-3 bg-grey-50 sm:ml-4  lg:ml-6 lg:mr-6">
+        <div className="sm:col-span-3 bg-grey-50 sm:ml-4  lg:ml-6 lg:mr-6">
           <div className="flex flex-row justify-between my-6">
             <div className="flex flex-row gap-2 p-6 ">
               <img
