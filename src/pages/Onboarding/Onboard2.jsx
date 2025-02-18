@@ -2,25 +2,41 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Progress from "../../components/Progress";
 import useOnboardingStore from "../../store/onBoardingStore";
+import axios from "axios";
 
 const Onboard2 = () => {
   const navigate = useNavigate();
-  const {  updateOnboardingData } = useOnboardingStore();
+  const { signupData,updateSignupData } = useOnboardingStore();
   const [selectedOptions, setSelectedOptions] = useState({
-    medicalConditions: "",
+    medicalHistory: "",
     allergies: "",
-    bloodType: "",
+    bloodGroup: "",
     genotype: "",
-    surgicalProcedures: "",
+    surgicalHistory: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSelectedOptions((prevState) => ({ ...prevState, [name]: value }));
-    if (value) {
-      updateOnboardingData("page2", { [name]: value });
-    }
+  
   };
+
+  const handleSubmit = async(e)=>{
+    e.preventDefault();
+    //filtering only those that have been filled 
+    const filteredData = Object.fromEntries(
+      Object.entries(selectedOptions).filter(([_, value]) => value !== "")
+    );
+    try{
+      const res = await axios.put(`https://healthcare-backend-jslb.onrender.com/v1/users/${signupData.id}`, filteredData)
+      updateSignupData(res.data)
+      console.log(res.data)
+    }catch(err){
+      console.log(err)
+    }
+
+
+  }
 
   return (
     <div className="flex flex-col items-center p-6 my-8 mx-6 bg-grey-50  md:w-[40%] md:m-auto ">
@@ -38,18 +54,16 @@ const Onboard2 = () => {
       <Progress />
 
       {/* Form */}
-      <form className="w-full max-w-md flex flex-col gap-4">
+      <form className="w-full max-w-md flex flex-col gap-4" onSubmit={handleSubmit}>
         {/* Name Fields */}
         <select
           className="w-full text-grey-400 bg-grey-50 text-sm border border-grey-400  rounded-sm px-4 py-3 focus:border-primary-500"
-          name="medicalConditions"
+          name="medicalHistory"
           id=""
-          value={selectedOptions.medicalConditions}
+          value={selectedOptions.medicalHistory}
           onChange={handleChange}
         >
-          <option className="" value="--">
-            Existing medical conditions
-          </option>
+          <option value="-">Existing medical conditions</option>
           <option value="asthma">Asthma</option>
           <option value="arthritis">
             Arthritis (e.g., Rheumatoid Arthritis, Osteoarthritis)
@@ -72,26 +86,23 @@ const Onboard2 = () => {
           onChange={handleChange}
         >
           <option value="--">Allergies</option>
-          <option value="">Asthma</option>
-          <option value="">
-            Arthritis (e.g., Rheumatoid Arthritis, Osteoarthritis)
-          </option>
-          <option value="">Breast Cancer</option>
-          <option value="">Congestibe Heart Failure</option>
-          <option value="">HIV/AIDS</option>
-          <option value="">Epilepsy</option>
-          <option value="">Hepatitis (A, B, C)</option>
-          <option value="">Type 2 Diabetes</option>
-          <option value="">Sickle Cell Disease</option>
+          <option value="pollen">Pollen Allergy</option>
+          <option value="dust">Dust Allergy</option>
+          <option value="peanuts">Peanut Allergy</option>
+          <option value="seafood">Seafood Allergy</option>
+          <option value="dairy">Dairy Allergy</option>
+          <option value="insect_sting">Insect Sting Allergy</option>
+          <option value="medications">Medication Allergy</option>
+          <option value="latex">Latex Allergy</option>
         </select>
 
         <div className="w-full flex flex-col md:flex-row gap-4">
           {/* blood type */}
           <select
             className="w-full text-grey-400 bg-grey-50 text-sm border border-grey-400 rounded-sm px-4 py-3"
-            name="bloodType"
+            name="bloodGroup"
             id=""
-            value={selectedOptions.bloodType}
+            value={selectedOptions.bloodGroup}
             onChange={handleChange}
           >
             <option value="--">Blood Type</option>
@@ -103,8 +114,6 @@ const Onboard2 = () => {
             <option value="AB-">AB Negative (AB-)</option>
             <option value="O+">O Positive (O+)</option>
             <option value="O-">O Negative (O-)</option>
-
-        
           </select>
 
           {/* genotype */}
@@ -127,9 +136,9 @@ const Onboard2 = () => {
         {/* surgical procedures */}
         <select
           className="w-full text-grey-400 bg-grey-50 text-sm border border-grey-400 rounded-sm px-4 py-3"
-          name="surgicalProcedures"
+          name="surgicalHistory"
           id=""
-          value={selectedOptions.surgicalProcedures}
+          value={selectedOptions.surgicalHistory}
           onChange={handleChange}
         >
           <option value="post_surgical">Post surgical procedures</option>
@@ -141,19 +150,28 @@ const Onboard2 = () => {
         </select>
         <div className="w-full flex gap-4">
           <button
-            onClick={() => {
-              navigate("/onboarding/3");
-            }}
+          type="submit"
             className="w-full py-3 text-grey-50 bg-purple-500 cursor-pointer rounded-sm hover:scale-105 transition-all duration-500"
           >
             Continue
           </button>
-          <button type='button' onClick={()=>{navigate('/onboarding/3')}} className="w-full py-3 text-grey-800 bg-grey-50 border border-grey-800 cursor-pointer rounded-sm hover:scale-105 transition-all duration-500">
+          <button
+            type="button"
+            onClick={() => {
+              navigate("/onboarding/3");
+            }}
+            className="w-full py-3 text-grey-800 bg-grey-50 border border-grey-800 cursor-pointer rounded-sm hover:scale-105 transition-all duration-500"
+          >
             Skip
           </button>
         </div>
       </form>
-      <button onClick={()=>{navigate('/')}} className="mt-4 py-3 rounded-sm hover:scale-105 duration-100 cursor-pointer">
+      <button
+        onClick={() => {
+          navigate("/");
+        }}
+        className="mt-4 py-3 rounded-sm hover:scale-105 duration-100 cursor-pointer"
+      >
         Skip onboarding
       </button>
     </div>

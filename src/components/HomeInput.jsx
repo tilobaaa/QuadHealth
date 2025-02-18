@@ -50,7 +50,7 @@ const HomeInput = forwardRef((props,ref) => {
 peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-grey-400 
 peer-focus:-top-2 peer-focus:text-sm peer-focus:px-1 peer-focus:text-grey-400 `}
       >
-        Search for  condition, field or doctor name 
+        Search <span className="hidden md:block">for  condition, field or doctor name </span>
       </label>
 
       <img

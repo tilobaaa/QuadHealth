@@ -47,14 +47,26 @@ const Onboard1 = () => {
   const handleNext = async (e) => {
     console.log(gender);
     e.preventDefault();
-    const formData = {
-      firstName: firstNameRef.current.value,
-      lastName: lastNameRef.current.value,
-      homeAddress: addressRef.current.value,
-      dateOfBirth: dobRef.current.value,
-      gender,
-    };
-
+    let formData;
+    if(signupData.firstName){
+      formData = {
+        firstName: signupData.firstName,
+        lastName: signupData.lastName,
+        homeAddress: signupData.homeAddress,
+        dateOfBirth: signupData.dateOfBirth,
+        gender: signupData.gender
+      }
+    }else{
+      formData = {
+        firstName: firstNameRef.current.value,
+        lastName: lastNameRef.current.value,
+        homeAddress: addressRef.current.value,
+        dateOfBirth: dobRef.current.value,
+        gender,
+      };
+  
+    }
+    
     console.log(formData);
 
     //  gender,

@@ -31,7 +31,7 @@ const MapComponent=({location})=>{
 
 
 return (
-  <MapContainer center={location} zoom={12} style={{ height: "500px", width: "100%" }}>
+  <MapContainer center={location} zoom={12} style={{ height: "100%", width: "100%" }}>
     {!location && <p>No location found</p>}
     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 

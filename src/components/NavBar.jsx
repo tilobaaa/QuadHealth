@@ -39,7 +39,7 @@ const NavBar = () => {
         {showMenu && (
           <div className="text-sm flex flex-col bg-grey-50 absolute right-5 p-4 z-40 rounded-md">
             <p className="hover:bg-grey-200 cursor-pointer px-2 text-grey-500 font-semibold pb-1 border-b ">Health providers</p>
-            <p onClick={()=>{navigate('/login')}} className="hover:bg-grey-200 cursor-pointer px-2 text-grey-500 font-semibold pb-1">Sign In</p>
+            <p onClick={()=>{navigate(name? "/" : "/login")}} className="hover:bg-grey-200 cursor-pointer px-2 text-grey-500 font-semibold pb-1">{firstName ? "Homepage" : "Sign In"}</p>
           </div>
         )}
         <div></div>
@@ -65,11 +65,11 @@ const NavBar = () => {
 
           <button
             onClick={() => {
-              navigate("/signup");
+              navigate(name?"/": '/login');
             }}
             className="bg-white text-gray-800 text-center px-8 py-3 rounded-sm font-light border  border-grey-800 hover:cursor-pointer hover:scale-105 transition-all duration-300"
           >
-            Sign in
+            {firstName ? "Homepage" : "Sign In"}
           </button>
         </div>
       )}

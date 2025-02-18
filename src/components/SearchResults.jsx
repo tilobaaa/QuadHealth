@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const SearchResults = ({location}) => {
 
- 
+  const [viewMap, setViewMap] = useState(false);
   const [specialty, setSpecialty] = useState("");
   const [date, setDate] = useState("");
 
@@ -15,15 +15,15 @@ if(!location) return alert("Please enter a location")
 
   const navigate = useNavigate();
   return (
-    <div>
+    <div className="py-4">
       <div className="flex gap-4 sm:hidden">
         <button className="flex gap-3 items-center justify-center border border-grey-800 p-3 w-full rounded-sm text-grey-800 font-medium">
           <img src="/assets/settings-04.svg" alt="" />
           <p>Filter</p>
         </button>
-        <button className="flex gap-3 items-center justify-center border border-grey-800 py-3 w-full rounded-sm text-grey-800 font-medium">
+        <button onClick={()=>setViewMap(!viewMap)} className="flex gap-3 items-center justify-center cursor-pointer border border-grey-800 py-3 w-full rounded-sm text-grey-800 font-medium hover:scale-105 duration-500">
           <img className="w-6 h-6" src="/assets/map-01.svg" alt="" />
-          <p>View Map</p>
+          <p>{viewMap ? "Close Map" : "View Map"}</p>
         </button>
       </div>
       <div className="flex justify-between items-center mb-6">
@@ -74,7 +74,7 @@ if(!location) return alert("Please enter a location")
           </div>
         </div>
         {/* middle */}
-        <div className="md:col-span-3 bg-grey-50 sm:ml-4  lg:ml-6 lg:mr-6">
+        <div className={`${viewMap ? "hidden ": ""} md:col-span-3 bg-grey-50 sm:ml-4  lg:ml-6 lg:mr-6`}>
           <div className="flex flex-row justify-between my-6">
             <div className="flex flex-row gap-2 p-6 ">
               <img
@@ -121,7 +121,7 @@ if(!location) return alert("Please enter a location")
           </div>
         </div>
         {/* right side */}
-        <div className=" hidden lg:block lg-col-span-1">
+        <div className= {`${viewMap ? "block": "hidden"} lg:block lg-col-span-1`}>
           <MapComponent location={location}/>
         </div>
       </div>
