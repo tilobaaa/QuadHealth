@@ -65,9 +65,33 @@ export const getUserLocation = async () => {
     }
   };
   
+  export  const filters = [
+    {
+      label: "Consultation Fee",
+      options: ["Any price", "Under ₦10,000", "₦10,000 to ₦50,000", "₦50,000 to ₦100,000"],
+    },
+    {
+      label: "Time of Day",
+      options: ["All", "Early morning (Before 11am)", "Morning (Before 12pm)", "Afternoon (After 12pm)", "Evening (After 4pm)"],
+    },
+    {
+      label: "Specialty",
+      options: ["All", "Cardiology", "Dermatology", "Pediatrics", "Orthopedics"],
+    },
+    {
+      label: "Distance",
+      options: ["All", "Within 5km (Nearby)", "Within 10km", "Within 50km", "Over 50km"],
+    },
+    {
+      label: "Gender",
+      options: ["All", "Female", "Male"],
+    },
+  ];
 
  //getting today's date 
 const todayDate = new Date();
 export const formattedDate = todayDate.getFullYear() + '-' + 
                      String(todayDate.getMonth() + 1).padStart(2, '0') + '-' + 
                      String(todayDate.getDate()).padStart(2, '0');
+
+                    

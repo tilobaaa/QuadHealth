@@ -113,7 +113,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="w-full flex flex-col sm:flex-row">
+      <div className="w-full flex flex-col md:flex-row">
         <HomeInput ref={homeInputRef}/>
         <CityInput ref={cityRef}/>
         <AppointmentInput
