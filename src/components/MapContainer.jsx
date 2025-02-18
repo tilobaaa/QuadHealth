@@ -1,15 +1,23 @@
-import { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { useState, useEffect, useRef } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-const MapComponent=({location})=>{
-   
-  const [hospitals, setHospitals] = useState([]);
-  const [searchLocation, setSearchLocation] = useState("");
+const MapUpdater = ({ location }) => {
+  const map = useMap();
 
-  // Fetch hospitals near the given coordinates
   useEffect(() => {
-    
+    if (location) {
+      map.setView(location, 12); // Update the map's view
+    }
+  }, [location, map]);
+
+  return null;
+};
+
+const MapComponent = ({ location }) => {
+  const [hospitals, setHospitals] = useState([]);
+
+  useEffect(() => {
     if (!location) return;
 
     const fetchHospitals = async () => {
@@ -29,22 +37,18 @@ const MapComponent=({location})=>{
     fetchHospitals();
   }, [location]);
 
+  return (
+    <MapContainer center={location} zoom={12} style={{ height: "100%", width: "100%" }} key={location.toString()}>
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <MapUpdater location={location} /> {/* This component updates the view */}
 
-return (
-  <MapContainer center={location} zoom={12} style={{ height: "100%", width: "100%" }}>
-    {!location && <p>No location found</p>}
-    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-
-    {/* Markers for Hospitals */}
-    {hospitals.map((hospital, index) => (
-      <Marker key={index} position={[hospital.lat, hospital.lon]}>
-        <Popup className="bg-primary-500 text-primary-50">{hospital.name}</Popup>
-      </Marker>
-    ))}
-
-    {console.log(hospitals)}
-  </MapContainer>
-);
-}
+      {hospitals.map((hospital, index) => (
+        <Marker key={index} position={[hospital.lat, hospital.lon]}>
+          <Popup>{hospital.name}</Popup>
+        </Marker>
+      ))}
+    </MapContainer>
+  );
+};
 
 export default MapComponent;
