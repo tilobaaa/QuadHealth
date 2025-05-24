@@ -29,7 +29,7 @@ const Home = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeNow(currentTime());
-    }, 60000);
+    }, 10000);
 
     return () => clearTimeout(timer);
   }, [timeNow]);

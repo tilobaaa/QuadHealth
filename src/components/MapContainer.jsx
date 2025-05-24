@@ -1,9 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
 
 const MapUpdater = ({ location }) => {
   const map = useMap();
+
+
 
   useEffect(() => {
     if (location) {
@@ -16,6 +19,10 @@ const MapUpdater = ({ location }) => {
 
 const MapComponent = ({ location }) => {
   const [hospitals, setHospitals] = useState([]);
+
+  const customIcon = new L.Icon({
+    iconUrl:'/assets/map-pin-03.svg'
+  })
 
   useEffect(() => {
     if (!location) return;
@@ -43,7 +50,7 @@ const MapComponent = ({ location }) => {
       <MapUpdater location={location} /> {/* This component updates the view */}
 
       {hospitals.map((hospital, index) => (
-        <Marker key={index} position={[hospital.lat, hospital.lon]}>
+        <Marker key={index} position={[hospital.lat, hospital.lon]} icon={customIcon}>
           <Popup>{hospital.name}</Popup>
         </Marker>
       ))}

@@ -16,7 +16,7 @@ if(!location) return alert("Please enter a location")
   const navigate = useNavigate();
   return (
     <div className="py-4">
-      <div className="flex gap-4 sm:hidden">
+      <div className="flex gap-4 lg:hidden">
         <button className="flex gap-3 items-center justify-center border border-grey-800 p-3 w-full rounded-sm text-grey-800 font-medium">
           <img src="/assets/settings-04.svg" alt="" />
           <p>Filter</p>
@@ -36,7 +36,7 @@ if(!location) return alert("Please enter a location")
       </div>
       <div className="sm:grid grid-cols-5">
         {/* left side  */}
-        <div className="hidden sm:block sm:col-span-2 lg:col-span-1 bg-grey-50 py-6 px-4">
+        <div className={`hidden sm:${viewMap ? "hidden": "block"} sm:col-span-2 lg:col-span-1 bg-grey-50 py-6 px-4`}>
           <p className="font-semibold text-grey-900">Filter</p>
           <div className="flex flex-row gap-2 mb-7">
             <button className="w-full rounded-sm px-3 py-2 font-medium text-grey-50 bg-primary-500">
